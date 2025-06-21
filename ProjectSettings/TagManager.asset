@@ -3,16 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Audio
+  - Enemy
+  - Ally_Projectile
+  - Enemy_Projectile
+  - Potion_Effects
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - 
-  - 
+  - Border
+  - Object
   - 
   - 
   - 
