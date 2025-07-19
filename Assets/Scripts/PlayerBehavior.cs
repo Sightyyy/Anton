@@ -16,12 +16,15 @@ public class PlayerBehavior : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 movementInput;
+
     private bool isBasicAttacking = false;
     private bool isDashing = false;
-    private float dashCooldownTimer = 0f;
+    private bool isUsingSkill = false;
+    private bool isUsingUltimate = false;
 
+    private float dashCooldownTimer = 0f;
     private float staminaRegenDelay = 0f;
-    private float staminaRegenTimer = 0f; // ← Timer untuk regen stamina
+    private float staminaRegenTimer = 0f;
 
     private Animator anim;
 
@@ -42,17 +45,19 @@ public class PlayerBehavior : MonoBehaviour
     {
         HandleInput();
         HandleDashCooldown();
-        HandleStaminaRegen(); // Regen stamina tiap detik jika delay sudah habis
+        HandleStaminaRegen();
     }
 
     private void FixedUpdate()
     {
-        if (!isDashing)
+        if (!isDashing && !isUsingSkill && !isUsingUltimate)
             rb.MovePosition(rb.position + movementInput * moveSpeed * Time.fixedDeltaTime);
     }
 
     private void HandleInput()
     {
+        if (isUsingSkill || isUsingUltimate) return;
+
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         movementInput = new Vector2(moveX, moveY).normalized;
@@ -61,10 +66,10 @@ public class PlayerBehavior : MonoBehaviour
             StartCoroutine(HandleBasicAttack());
 
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.JoystickButton3))
-            HandleSkill();
+            StartCoroutine(HandleSkill());
 
         if (Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.JoystickButton1))
-            HandleUltimate();
+            StartCoroutine(HandleUltimate());
 
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton0))
             HandleDash();
@@ -74,7 +79,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private IEnumerator HandleBasicAttack()
     {
-        if (isBasicAttacking || anim == null) yield break;
+        if (isBasicAttacking || isUsingSkill || isUsingUltimate || anim == null) yield break;
 
         isBasicAttacking = true;
         anim.SetTrigger("Attack");
@@ -90,29 +95,57 @@ public class PlayerBehavior : MonoBehaviour
         isBasicAttacking = false;
     }
 
-    private void HandleSkill()
+    private IEnumerator HandleSkill()
     {
-        if (stamina < 10 || anim == null) return;
+        if (stamina < 10 || anim == null || isUsingSkill || isUsingUltimate) yield break;
 
-        anim.SetTrigger("Skill");
+        isUsingSkill = true;
         stamina -= 10;
         staminaRegenDelay = 1f;
-        staminaRegenTimer = 0f; // Reset timer saat delay dimulai
+        staminaRegenTimer = 0f;
+
+        rb.simulated = false;
+        movementInput = Vector2.zero;
+
+        anim.SetTrigger("Skill");
+
+        yield return new WaitUntil(() =>
+        {
+            AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
+            return state.IsName("Skill") && state.normalizedTime >= 1f;
+        });
+
+        rb.simulated = true;
+        isUsingSkill = false;
     }
 
-    private void HandleUltimate()
+    private IEnumerator HandleUltimate()
     {
-        if (stamina < 30 || anim == null) return;
+        if (stamina < 30 || anim == null || isUsingUltimate || isUsingSkill) yield break;
 
-        anim.SetTrigger("Ultimate");
+        isUsingUltimate = true;
         stamina -= 30;
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
+
+        rb.simulated = false;
+        movementInput = Vector2.zero;
+
+        anim.SetTrigger("Ultimate");
+
+        yield return new WaitUntil(() =>
+        {
+            AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
+            return state.IsName("Ultimate") && state.normalizedTime >= 1f;
+        });
+
+        rb.simulated = true;
+        isUsingUltimate = false;
     }
 
     private void HandleDash()
     {
-        if (isDashing || dashCooldownTimer > 0f || stamina < 5) return;
+        if (isDashing || dashCooldownTimer > 0f || stamina < 5 || isUsingSkill || isUsingUltimate) return;
 
         stamina -= 5;
         isDashing = true;
