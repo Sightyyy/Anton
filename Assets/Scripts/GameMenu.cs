@@ -11,11 +11,14 @@ public class GameMenu : MonoBehaviour
     private bool paused = false;
     AudioCollection audioCollection;
     [SerializeField] private GameObject pausePanel;
+    private PlayerBehavior playerBehavior;
 
     private void Awake()
     {
         audioCollection = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioCollection>();
+        playerBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
     }
+
 
     private void Start()
     {
@@ -25,6 +28,8 @@ public class GameMenu : MonoBehaviour
 
     private void Update()
     {
+        if (playerBehavior != null && playerBehavior.isDead) return; // Mati = tidak bisa pause
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!paused)
@@ -39,6 +44,9 @@ public class GameMenu : MonoBehaviour
             }
         }
     }
+
+
+
 
     public void ReturnToMainMenu(string sceneName)
     {

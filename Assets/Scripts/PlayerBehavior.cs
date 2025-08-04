@@ -17,10 +17,15 @@ public class PlayerBehavior : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movementInput;
 
-    private bool isBasicAttacking = false;
+    public bool isDead = false;
+
     private bool isDashing = false;
-    private bool isUsingSkill = false;
-    private bool isUsingUltimate = false;
+    private bool isDoingAction = false;
+    private bool isHardLocked = false;
+
+    public bool IsHardLocked() => isHardLocked;
+
+
 
     private float dashCooldownTimer = 0f;
     private float staminaRegenDelay = 0f;
@@ -46,21 +51,27 @@ public class PlayerBehavior : MonoBehaviour
         HandleInput();
         HandleDashCooldown();
         HandleStaminaRegen();
+        UpdateAnimatorState();
     }
 
     private void FixedUpdate()
     {
-        if (!isDashing && !isUsingSkill && !isUsingUltimate)
-            rb.MovePosition(rb.position + movementInput * moveSpeed * Time.fixedDeltaTime);
+        if (isDead || isDashing || isHardLocked) return;
+
+        rb.MovePosition(rb.position + movementInput * moveSpeed * Time.fixedDeltaTime);
     }
 
     private void HandleInput()
     {
-        if (isUsingSkill || isUsingUltimate) return;
+        if (isDead || isHardLocked) return;
 
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         movementInput = new Vector2(moveX, moveY).normalized;
+
+        UpdateFacingDirection();
+
+        if (isDoingAction) return;
 
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.JoystickButton2))
             StartCoroutine(HandleBasicAttack());
@@ -73,79 +84,65 @@ public class PlayerBehavior : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton0))
             HandleDash();
-
-        UpdateFacingDirection();
     }
+
+
+
 
     private IEnumerator HandleBasicAttack()
     {
-        if (isBasicAttacking || isUsingSkill || isUsingUltimate || anim == null) yield break;
+        if (isDoingAction || anim == null) yield break;
 
-        isBasicAttacking = true;
+        isDoingAction = true;
         anim.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.1f);
 
-        yield return new WaitUntil(() =>
-        {
-            AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
-            return !state.IsName("Attack") || state.normalizedTime >= 1f;
-        });
-
-        isBasicAttacking = false;
+        isDoingAction = false;
     }
+
 
     private IEnumerator HandleSkill()
     {
-        if (stamina < 10 || anim == null || isUsingSkill || isUsingUltimate) yield break;
+        if (stamina < 10 || isDoingAction || anim == null) yield break;
 
-        isUsingSkill = true;
+        isDoingAction = true;
+        isHardLocked = true;
         stamina -= 10;
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
 
-        rb.simulated = false;
-        movementInput = Vector2.zero;
-
         anim.SetTrigger("Skill");
 
-        yield return new WaitUntil(() =>
-        {
-            AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
-            return state.IsName("Skill") && state.normalizedTime >= 1f;
-        });
+        yield return new WaitForSeconds(1f); // Sesuaikan durasi Skill animasi
 
-        rb.simulated = true;
-        isUsingSkill = false;
+        isDoingAction = false;
+        isHardLocked = false;
     }
+
 
     private IEnumerator HandleUltimate()
     {
-        if (stamina < 30 || anim == null || isUsingUltimate || isUsingSkill) yield break;
+        if (stamina < 30 || isDoingAction || anim == null) yield break;
 
-        isUsingUltimate = true;
+        isDoingAction = true;
+        isHardLocked = true;
         stamina -= 30;
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
 
-        rb.simulated = false;
-        movementInput = Vector2.zero;
-
         anim.SetTrigger("Ultimate");
 
-        yield return new WaitUntil(() =>
-        {
-            AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
-            return state.IsName("Ultimate") && state.normalizedTime >= 1f;
-        });
+        yield return new WaitForSeconds(1.5f); // Sesuaikan durasi Ultimate animasi
 
-        rb.simulated = true;
-        isUsingUltimate = false;
+        isDoingAction = false;
+        isHardLocked = false;
     }
+
 
     private void HandleDash()
     {
-        if (isDashing || dashCooldownTimer > 0f || stamina < 5 || isUsingSkill || isUsingUltimate) return;
+        if (isDashing || dashCooldownTimer > 0f || stamina < 5 || isDoingAction) return;
 
         stamina -= 5;
         isDashing = true;
@@ -195,13 +192,35 @@ public class PlayerBehavior : MonoBehaviour
     private void UpdateFacingDirection()
     {
         if (movementInput.x > 0)
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        else if (movementInput.x < 0)
             transform.rotation = Quaternion.Euler(0, 0, 0);
+        else if (movementInput.x < 0)
+            transform.rotation = Quaternion.Euler(0, 180, 0);
     }
+
+    private void UpdateAnimatorState()
+    {
+        if (health <= 0 && !isDead)
+        {
+            anim.SetInteger("State", 2);
+            isDoingAction = true;
+            isDead = true;
+            movementInput = Vector2.zero;
+            return;
+        }
+
+        if (isDoingAction || isDead) return;
+
+        if (movementInput != Vector2.zero)
+            anim.SetInteger("State", 1);
+        else
+            anim.SetInteger("State", 0);
+    }
+
+
 
     public int GetHealth() => health;
     public int GetStamina() => stamina;
     public void SetHealth(int value) => health = Mathf.Clamp(value, 0, 100);
     public void SetStamina(int value) => stamina = Mathf.Clamp(value, 0, 100);
 }
+
