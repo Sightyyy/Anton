@@ -111,12 +111,42 @@ public class EnemySpawn : MonoBehaviour
     {
         if (enemyPrefab == null || count <= 0) yield break;
 
-        for (int i = 0; i < count; i++)
+        if (bossCount > 0)
         {
-            Vector2 spawnPos = GetValidSpawnPosition();
-            GameObject spawned = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-            spawnedEnemies.Add(spawned);
-            yield return new WaitForSeconds(spawnDelay);
+            for (int i = 0; i < count; i++)
+            {
+                Vector2 spawnPos = GetValidSpawnPosition();
+                GameObject spawned = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+                spawnedEnemies.Add(spawned);
+                yield return new WaitForSeconds(spawnDelay);
+            }
+            yield break;
+        }
+
+        int remaining = count;
+
+        while (remaining > 0)
+        {
+            int groupSize = Mathf.Min(remaining, Random.Range(2, 4));
+
+            if (remaining - groupSize == 1)
+            {
+                groupSize = Mathf.Min(remaining, groupSize + 1);
+            }
+
+            for (int i = 0; i < groupSize; i++)
+            {
+                Vector2 spawnPos = GetValidSpawnPosition();
+                GameObject spawned = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+                spawnedEnemies.Add(spawned);
+            }
+
+            remaining -= groupSize;
+
+            if (remaining > 0)
+            {
+                yield return new WaitForSeconds(spawnDelay * 2f); // Slightly longer delay between groups
+            }
         }
     }
 

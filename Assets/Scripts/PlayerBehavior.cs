@@ -30,6 +30,8 @@ public class PlayerBehavior : MonoBehaviour
     private float dashCooldownTimer = 0f;
     private float staminaRegenDelay = 0f;
     private float staminaRegenTimer = 0f;
+    private float skillCooldownTimer = 0f;
+    private float ultimateCooldownTimer = 0f;
 
     private Animator anim;
 
@@ -51,6 +53,8 @@ public class PlayerBehavior : MonoBehaviour
         HandleInput();
         HandleDashCooldown();
         HandleStaminaRegen();
+        HandleSkillCooldown();
+        HandleUltimateCooldown();
         UpdateAnimatorState();
     }
 
@@ -104,41 +108,53 @@ public class PlayerBehavior : MonoBehaviour
 
     private IEnumerator HandleSkill()
     {
-        if (stamina < 10 || isDoingAction || anim == null) yield break;
+        if (stamina < 10 || isDoingAction || anim == null || skillCooldownTimer > 0f) yield break;
 
         isDoingAction = true;
         isHardLocked = true;
         stamina -= 10;
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
+        skillCooldownTimer = 8f;
 
         anim.SetTrigger("Skill");
 
-        yield return new WaitForSeconds(1f); // Sesuaikan durasi Skill animasi
+        yield return new WaitForSeconds(1f);
 
         isDoingAction = false;
         isHardLocked = false;
     }
 
+    private void HandleSkillCooldown()
+    {
+        if (skillCooldownTimer > 0f)
+            skillCooldownTimer -= Time.deltaTime;
+    }
 
     private IEnumerator HandleUltimate()
     {
-        if (stamina < 30 || isDoingAction || anim == null) yield break;
+        if (stamina < 30 || isDoingAction || anim == null || ultimateCooldownTimer > 0f) yield break;
 
         isDoingAction = true;
         isHardLocked = true;
         stamina -= 30;
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
+        ultimateCooldownTimer = 20f;
 
         anim.SetTrigger("Ultimate");
 
-        yield return new WaitForSeconds(1.5f); // Sesuaikan durasi Ultimate animasi
+        yield return new WaitForSeconds(1.5f);
 
         isDoingAction = false;
         isHardLocked = false;
     }
 
+    private void HandleUltimateCooldown()
+    {
+        if (ultimateCooldownTimer > 0f)
+            ultimateCooldownTimer -= Time.deltaTime;
+    }
 
     private void HandleDash()
     {
@@ -150,7 +166,10 @@ public class PlayerBehavior : MonoBehaviour
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
 
-        Vector2 dashDirection = (transform.rotation.y == 0) ? Vector2.left : Vector2.right;
+        Vector2 dashDirection = (movementInput != Vector2.zero) ?
+            movementInput.normalized :
+            (transform.rotation.y == 0 ? Vector2.right : Vector2.left);
+
         Vector2 dashTarget = rb.position + dashDirection * 5f;
 
         StartCoroutine(DashMovement(dashTarget));
