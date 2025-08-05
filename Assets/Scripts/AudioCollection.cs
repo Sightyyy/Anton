@@ -26,7 +26,9 @@ public class AudioCollection : MonoBehaviour
     public AudioClip walking;
     public AudioClip sensor;
     public AudioClip jump;
-    public AudioClip checkpoint;
+    public AudioClip skillSlash;
+    public AudioClip ultSlash;
+    public AudioClip ultArea;
 
     private List<AudioSource> sfxSources = new List<AudioSource>();
 
