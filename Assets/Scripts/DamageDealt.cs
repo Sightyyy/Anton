@@ -2,20 +2,35 @@ using UnityEngine;
 
 public class DamageDealt : MonoBehaviour
 {
-    [Header("Damage Settings")]
     public int damageAmount = 10;
-
-    [Tooltip("Tag dari target yang akan terkena damage, misalnya: 'Enemy'")]
     public string targetTag = "Enemy";
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(targetTag))
+        if (!collision.CompareTag(targetTag))
+            return;
+
+        if (targetTag == "Enemy")
         {
-            var enemy = collision.GetComponent<EnemyBehavior>();
+            EnemyBehavior enemy = collision.GetComponent<EnemyBehavior>();
             if (enemy != null)
             {
                 enemy.TakeDamage(damageAmount);
+            }
+        }
+        else if (targetTag == "Player")
+        {
+            PlayerBehavior player = collision.GetComponent<PlayerBehavior>();
+            if (player != null)
+            {
+                int finalDamage = damageAmount;
+
+                if (player.isWeakened)
+                {
+                    finalDamage = Mathf.FloorToInt(damageAmount * 0.9f);
+                }
+
+                player.SetHealth(player.GetHealth() - finalDamage);
             }
         }
     }

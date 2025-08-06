@@ -17,16 +17,24 @@ public class PlayerBehavior : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movementInput;
 
+    public bool isWeakened = false;
+    public bool isBurning = false;
+    public bool isPoisoned = false;
+    public bool isSlowed = false;
+    public bool isKnockbacked = false;
     public bool isDead = false;
-
     private bool isDashing = false;
     private bool isDoingAction = false;
     private bool isHardLocked = false;
-
     public bool IsHardLocked() => isHardLocked;
 
-
-
+    private float weakenTimer = 0f;
+    private float burnTimer = 0f;
+    private float poisonTimer = 0f;
+    private float slowTimer = 0f;
+    private float knockbackCooldown = 0f;
+    private float originalSpeed;
+    private SpriteRenderer spriteRenderer;
     private float dashCooldownTimer = 0f;
     private float staminaRegenDelay = 0f;
     private float staminaRegenTimer = 0f;
@@ -37,6 +45,8 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Awake()
     {
+        originalSpeed = moveSpeed;
+        spriteRenderer = visual.GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
 
         if (visual == null)
@@ -241,5 +251,161 @@ public class PlayerBehavior : MonoBehaviour
     public int GetStamina() => stamina;
     public void SetHealth(int value) => health = Mathf.Clamp(value, 0, 100);
     public void SetStamina(int value) => stamina = Mathf.Clamp(value, 0, 100);
+
+    public void ApplyWeaken()
+    {
+        if (isWeakened)
+        {
+            weakenTimer = 15f; // Refresh durasi
+            return;
+        }
+
+        isWeakened = true;
+        weakenTimer = 15f;
+        StartCoroutine(WeakenEffect());
+    }
+
+    private IEnumerator WeakenEffect()
+    {
+        while (weakenTimer > 0f)
+        {
+            weakenTimer -= Time.deltaTime;
+            yield return null;
+        }
+
+        isWeakened = false;
+    }
+    public bool IsDebuffActive(string debuffName)
+    {
+        switch (debuffName)
+        {
+            case "Weaken": return isWeakened;
+            case "Burning": return isBurning;
+            case "Poisoned": return isPoisoned;
+            case "Slowed": return isSlowed;
+            case "Knockbacked": return isKnockbacked;
+            default: return false;
+        }
+    }
+
+    public void ApplyBurning()
+    {
+        if (isBurning)
+        {
+            burnTimer = 5f; // Refresh duration
+            return;
+        }
+
+        isBurning = true;
+        burnTimer = 5f;
+        StartCoroutine(BurningEffect());
+    }
+
+    private IEnumerator BurningEffect()
+    {
+        spriteRenderer.color = Color.red; // Oranye bisa custom, ini contoh pakai merah
+
+        while (burnTimer > 0f)
+        {
+            health -= Mathf.CeilToInt(health * 0.03f);
+            burnTimer -= 1f;
+            yield return new WaitForSeconds(1f);
+        }
+
+        isBurning = false;
+        spriteRenderer.color = Color.white;
+    }
+    public void ApplyPoisoned()
+    {
+        if (isPoisoned)
+        {
+            poisonTimer = 15f; // Refresh
+            return;
+        }
+
+        isPoisoned = true;
+        poisonTimer = 15f;
+        slowTimer = Mathf.Max(slowTimer, 8f); // Poison slow effect override
+        StartCoroutine(PoisonedEffect());
+    }
+
+    private IEnumerator PoisonedEffect()
+    {
+        spriteRenderer.color = new Color(0.5f, 0f, 0.5f); // Violet
+
+        moveSpeed = originalSpeed * 0.85f; // Reduce 15% speed during poison
+
+        while (poisonTimer > 0f)
+        {
+            if (health > 15)
+            {
+                health -= Mathf.CeilToInt(health * 0.05f);
+            }
+            poisonTimer -= 1f;
+            yield return new WaitForSeconds(1f);
+        }
+
+        moveSpeed = originalSpeed;
+        isPoisoned = false;
+        spriteRenderer.color = Color.white;
+    }
+    public void ApplySlowed()
+    {
+        if (isSlowed)
+        {
+            slowTimer = 8f; // Refresh
+            return;
+        }
+
+        isSlowed = true;
+        slowTimer = 8f;
+        StartCoroutine(SlowedEffect());
+    }
+
+    private IEnumerator SlowedEffect()
+    {
+        spriteRenderer.color = new Color(0.25f, 0.25f, 1f); // 75% blue, 25% gray
+        moveSpeed = originalSpeed * 0.5f;
+
+        while (slowTimer > 0f)
+        {
+            slowTimer -= Time.deltaTime;
+            yield return null;
+        }
+
+        moveSpeed = originalSpeed;
+        isSlowed = false;
+        spriteRenderer.color = Color.white;
+    }
+    public void ApplyKnockbacked(Transform source)
+    {
+        if (isKnockbacked || knockbackCooldown > 0f) return;
+
+        Vector2 knockDirection = ((Vector2)(transform.position - source.position)).normalized;
+
+        StartCoroutine(KnockbackEffect(knockDirection));
+    }
+
+    private IEnumerator KnockbackEffect(Vector2 direction)
+    {
+        isKnockbacked = true;
+        isHardLocked = true;
+        knockbackCooldown = 1.5f;
+
+        Vector2 knockbackTarget = rb.position + direction * 5f; // Same as dash distance
+        rb.MovePosition(knockbackTarget);
+
+        yield return new WaitForSeconds(0.8f);
+
+        isKnockbacked = false;
+        isHardLocked = false;
+    }
+
+    private void HandleKnockbackCooldown()
+    {
+        if (knockbackCooldown > 0f)
+            knockbackCooldown -= Time.deltaTime;
+    }
+
 }
 

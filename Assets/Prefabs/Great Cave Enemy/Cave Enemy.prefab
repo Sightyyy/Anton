@@ -163,9 +163,9 @@ GameObject:
   - component: {fileID: 6784409147261332421}
   - component: {fileID: 8993547522112952782}
   - component: {fileID: 3999819462550874660}
-  - component: {fileID: 7204333027637427420}
+  - component: {fileID: -1167147038950016580}
   m_Layer: 0
-  m_Name: Plains Enemy
+  m_Name: Cave Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -352,7 +352,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   smoothSpeed: 5
---- !u!114 &7204333027637427420
+--- !u!114 &-1167147038950016580
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
