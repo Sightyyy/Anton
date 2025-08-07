@@ -313,12 +313,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4819242dcb8e441a9d0060ac98060a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 500
   health: 100
   stamina: 50
   defense: 5
-  moveSpeed: 3
-  contactDamage: 10
+  moveSpeed: 8
+  contactDamage: 20
   healthBarCanvas: {fileID: 8351352050001392744}
   healthFillImage: {fileID: 6324628600418091967}
   healthGradient:

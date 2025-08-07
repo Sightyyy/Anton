@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerBehavior : MonoBehaviour
@@ -16,6 +17,9 @@ public class PlayerBehavior : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 movementInput;
+
+    public Image skillCooldownImage;
+    public Image ultimateCooldownImage;
 
     public bool isWeakened = false;
     public bool isBurning = false;
@@ -126,6 +130,7 @@ public class PlayerBehavior : MonoBehaviour
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
         skillCooldownTimer = 8f;
+        skillCooldownImage.gameObject.SetActive(true);
 
         anim.SetTrigger("Skill");
 
@@ -138,7 +143,22 @@ public class PlayerBehavior : MonoBehaviour
     private void HandleSkillCooldown()
     {
         if (skillCooldownTimer > 0f)
+        {
             skillCooldownTimer -= Time.deltaTime;
+
+            if (skillCooldownImage != null)
+            {
+                skillCooldownImage.fillAmount = skillCooldownTimer / 8f;
+            }
+        }
+        else if (skillCooldownTimer <= 0f && skillCooldownImage != null)
+        {
+            skillCooldownImage.gameObject.SetActive(false);
+        }
+        else if (skillCooldownImage != null)
+        {
+            skillCooldownImage.fillAmount = 0f;
+        }
     }
 
     private IEnumerator HandleUltimate()
@@ -151,6 +171,7 @@ public class PlayerBehavior : MonoBehaviour
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
         ultimateCooldownTimer = 20f;
+        ultimateCooldownImage.gameObject.SetActive(true);
 
         anim.SetTrigger("Ultimate");
 
@@ -163,7 +184,22 @@ public class PlayerBehavior : MonoBehaviour
     private void HandleUltimateCooldown()
     {
         if (ultimateCooldownTimer > 0f)
+        {
             ultimateCooldownTimer -= Time.deltaTime;
+            
+            if (ultimateCooldownImage != null)
+            {
+                ultimateCooldownImage.fillAmount = ultimateCooldownTimer / 20f;
+            }
+        }
+        else if (ultimateCooldownTimer <= 0f && ultimateCooldownImage != null)
+        {
+            ultimateCooldownImage.gameObject.SetActive(false);
+        }
+        else if (ultimateCooldownImage != null)
+        {
+            ultimateCooldownImage.fillAmount = 0f;
+        }
     }
 
     private void HandleDash()
