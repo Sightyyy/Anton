@@ -9,7 +9,10 @@ public class PlayerBehavior : MonoBehaviour
     public float moveSpeed = 5f;
 
     [Header("Player Stats")]
-    public int health = 100;
+    [Tooltip("Maximum HP")]
+    public int maxHealth = 10000;
+    [Tooltip("Current HP")]
+    public int health;
     public int stamina = 100;
 
     [Header("Visual Reference")]
@@ -49,17 +52,26 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Awake()
     {
-        originalSpeed = moveSpeed;
-        spriteRenderer = visual.GetComponent<SpriteRenderer>();
+        // component refs
         rb = GetComponent<Rigidbody2D>();
 
         if (visual == null)
             visual = transform.Find("Visual")?.gameObject;
 
         if (visual != null)
+        {
+            spriteRenderer = visual.GetComponent<SpriteRenderer>();
             anim = visual.GetComponent<Animator>();
+        }
         else
+        {
             Debug.LogError("Visual GameObject tidak ditemukan!");
+        }
+
+        originalSpeed = moveSpeed;
+
+        if (maxHealth <= 0) maxHealth = 100;
+        health = Mathf.Clamp(health > 0 ? health : maxHealth, 0, maxHealth);
     }
 
     private void Update()
@@ -69,6 +81,7 @@ public class PlayerBehavior : MonoBehaviour
         HandleStaminaRegen();
         HandleSkillCooldown();
         HandleUltimateCooldown();
+        HandleKnockbackCooldown();
         UpdateAnimatorState();
     }
 
@@ -104,9 +117,6 @@ public class PlayerBehavior : MonoBehaviour
             HandleDash();
     }
 
-
-
-
     private IEnumerator HandleBasicAttack()
     {
         if (isDoingAction || anim == null) yield break;
@@ -114,10 +124,11 @@ public class PlayerBehavior : MonoBehaviour
         isDoingAction = true;
         anim.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(1.1f);
+        yield return new WaitForSeconds(0.55f);
 
         isDoingAction = false;
     }
+
 
 
     private IEnumerator HandleSkill()
@@ -130,11 +141,11 @@ public class PlayerBehavior : MonoBehaviour
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
         skillCooldownTimer = 8f;
-        skillCooldownImage.gameObject.SetActive(true);
+        if (skillCooldownImage) skillCooldownImage.gameObject.SetActive(true);
 
         anim.SetTrigger("Skill");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.683f);
 
         isDoingAction = false;
         isHardLocked = false;
@@ -171,11 +182,11 @@ public class PlayerBehavior : MonoBehaviour
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
         ultimateCooldownTimer = 20f;
-        ultimateCooldownImage.gameObject.SetActive(true);
+        if (ultimateCooldownImage) ultimateCooldownImage.gameObject.SetActive(true);
 
         anim.SetTrigger("Ultimate");
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.35f);
 
         isDoingAction = false;
         isHardLocked = false;
@@ -186,7 +197,7 @@ public class PlayerBehavior : MonoBehaviour
         if (ultimateCooldownTimer > 0f)
         {
             ultimateCooldownTimer -= Time.deltaTime;
-            
+
             if (ultimateCooldownImage != null)
             {
                 ultimateCooldownImage.fillAmount = ultimateCooldownTimer / 20f;
@@ -266,7 +277,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (health <= 0 && !isDead)
         {
-            anim.SetInteger("State", 2);
+            anim?.SetInteger("State", 2);
             isDoingAction = true;
             isDead = true;
             movementInput = Vector2.zero;
@@ -276,23 +287,42 @@ public class PlayerBehavior : MonoBehaviour
         if (isDoingAction || isDead) return;
 
         if (movementInput != Vector2.zero)
-            anim.SetInteger("State", 1);
+            anim?.SetInteger("State", 1);
         else
-            anim.SetInteger("State", 0);
+            anim?.SetInteger("State", 0);
     }
-
-
 
     public int GetHealth() => health;
     public int GetStamina() => stamina;
-    public void SetHealth(int value) => health = Mathf.Clamp(value, 0, 100);
+    public void SetHealth(int value) => health = Mathf.Clamp(value, 0, maxHealth);
+
+    public void TakeDamage(int amount)
+    {
+        if (amount <= 0 || isDead) return;
+
+        SetHealth(health - amount);
+
+        if (health <= 0)
+        {
+            isDead = true;
+            isDoingAction = true;
+            anim?.SetInteger("State", 2);
+        }
+    }
+
+    public void Heal(int amount)
+    {
+        if (amount <= 0 || isDead) return;
+        SetHealth(health + amount);
+    }
+
     public void SetStamina(int value) => stamina = Mathf.Clamp(value, 0, 100);
 
     public void ApplyWeaken()
     {
         if (isWeakened)
         {
-            weakenTimer = 15f; // Refresh durasi
+            weakenTimer = 15f;
             return;
         }
 
@@ -311,6 +341,7 @@ public class PlayerBehavior : MonoBehaviour
 
         isWeakened = false;
     }
+
     public bool IsDebuffActive(string debuffName)
     {
         switch (debuffName)
@@ -328,7 +359,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (isBurning)
         {
-            burnTimer = 5f; // Refresh duration
+            burnTimer = 5f;
             return;
         }
 
@@ -339,43 +370,46 @@ public class PlayerBehavior : MonoBehaviour
 
     private IEnumerator BurningEffect()
     {
-        spriteRenderer.color = Color.red; // Oranye bisa custom, ini contoh pakai merah
+        if (spriteRenderer != null) spriteRenderer.color = Color.red;
 
         while (burnTimer > 0f)
         {
-            health -= Mathf.CeilToInt(health * 0.03f);
+            int dmg = Mathf.CeilToInt(health * 0.03f);
+            TakeDamage(dmg);
             burnTimer -= 1f;
             yield return new WaitForSeconds(1f);
         }
 
         isBurning = false;
-        spriteRenderer.color = Color.white;
+        if (spriteRenderer != null) spriteRenderer.color = Color.white;
     }
+
     public void ApplyPoisoned()
     {
         if (isPoisoned)
         {
-            poisonTimer = 15f; // Refresh
+            poisonTimer = 15f;
             return;
         }
 
         isPoisoned = true;
         poisonTimer = 15f;
-        slowTimer = Mathf.Max(slowTimer, 8f); // Poison slow effect override
+        slowTimer = Mathf.Max(slowTimer, 8f);
         StartCoroutine(PoisonedEffect());
     }
 
     private IEnumerator PoisonedEffect()
     {
-        spriteRenderer.color = new Color(0.5f, 0f, 0.5f); // Violet
+        if (spriteRenderer != null) spriteRenderer.color = new Color(0.5f, 0f, 0.5f);
 
-        moveSpeed = originalSpeed * 0.85f; // Reduce 15% speed during poison
+        moveSpeed = originalSpeed * 0.85f;
 
         while (poisonTimer > 0f)
         {
-            if (health > 15)
+            if (health > Mathf.CeilToInt(maxHealth * 0.15f))
             {
-                health -= Mathf.CeilToInt(health * 0.05f);
+                int dmg = Mathf.CeilToInt(health * 0.05f);
+                TakeDamage(dmg);
             }
             poisonTimer -= 1f;
             yield return new WaitForSeconds(1f);
@@ -383,13 +417,14 @@ public class PlayerBehavior : MonoBehaviour
 
         moveSpeed = originalSpeed;
         isPoisoned = false;
-        spriteRenderer.color = Color.white;
+        if (spriteRenderer != null) spriteRenderer.color = Color.white;
     }
+
     public void ApplySlowed()
     {
         if (isSlowed)
         {
-            slowTimer = 8f; // Refresh
+            slowTimer = 8f;
             return;
         }
 
@@ -400,7 +435,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private IEnumerator SlowedEffect()
     {
-        spriteRenderer.color = new Color(0.25f, 0.25f, 1f); // 75% blue, 25% gray
+        if (spriteRenderer != null) spriteRenderer.color = new Color(0.25f, 0.25f, 1f);
         moveSpeed = originalSpeed * 0.5f;
 
         while (slowTimer > 0f)
@@ -411,8 +446,9 @@ public class PlayerBehavior : MonoBehaviour
 
         moveSpeed = originalSpeed;
         isSlowed = false;
-        spriteRenderer.color = Color.white;
+        if (spriteRenderer != null) spriteRenderer.color = Color.white;
     }
+
     public void ApplyKnockbacked(Transform source)
     {
         if (isKnockbacked || knockbackCooldown > 0f) return;
@@ -428,7 +464,7 @@ public class PlayerBehavior : MonoBehaviour
         isHardLocked = true;
         knockbackCooldown = 1.5f;
 
-        Vector2 knockbackTarget = rb.position + direction * 5f; // Same as dash distance
+        Vector2 knockbackTarget = rb.position + direction * 5f;
         rb.MovePosition(knockbackTarget);
 
         yield return new WaitForSeconds(0.8f);
@@ -442,6 +478,4 @@ public class PlayerBehavior : MonoBehaviour
         if (knockbackCooldown > 0f)
             knockbackCooldown -= Time.deltaTime;
     }
-
 }
-

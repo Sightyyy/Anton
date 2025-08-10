@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,7 @@ public class EnemyBehavior : MonoBehaviour
 {
     [Header("Enemy Stats")]
     public int maxHealth = 100;
-    public int health = 100;
+    public int currentHealth;
     public int stamina = 50;
     public int defense = 5;
     public float moveSpeed = 3f;
@@ -20,11 +21,13 @@ public class EnemyBehavior : MonoBehaviour
 
     private Rigidbody2D rb;
     private Transform player;
-    private float targetFillAmount = 1f; // Added missing variable
+    public event Action onDeath;
+    private float targetFillAmount = 1f;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
         InitializeHealthBar();
         FindPlayer();
     }
@@ -33,9 +36,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (healthBarCanvas != null)
         {
-            // Assign Main Camera to World Space Canvas
             healthBarCanvas.worldCamera = Camera.main;
-
             healthFillImage.fillAmount = 1f;
             healthFillImage.color = healthGradient.Evaluate(1f);
         }
@@ -63,7 +64,7 @@ public class EnemyBehavior : MonoBehaviour
         if (player == null) return;
 
         UpdateMovement();
-        UpdateHealthBar();
+        SmoothHealthBar();
     }
 
     private void UpdateMovement()
@@ -73,30 +74,43 @@ public class EnemyBehavior : MonoBehaviour
         Move(direction);
     }
 
-    private void UpdateHealthBar()
+    private void SmoothHealthBar()
     {
         if (healthFillImage == null) return;
 
-        targetFillAmount = (float)health / maxHealth; // Calculate target fill
-
+        targetFillAmount = (float)currentHealth / maxHealth;
         healthFillImage.fillAmount = Mathf.Lerp(
             healthFillImage.fillAmount,
             targetFillAmount,
             Time.deltaTime * smoothSpeed
         );
-
         healthFillImage.color = healthGradient.Evaluate(healthFillImage.fillAmount);
     }
 
     public void TakeDamage(int amount)
     {
         int finalDamage = Mathf.Max(0, amount - defense);
-        health -= finalDamage;
-        health = Mathf.Clamp(health, 0, maxHealth);
+        int oldHealth = currentHealth;
 
-        Debug.Log($"{gameObject.name} received {finalDamage} damage after defense. Current HP: {health}");
+        currentHealth -= finalDamage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        if (health <= 0)
+        if (healthFillImage != null)
+        {
+            healthFillImage.fillAmount = (float)currentHealth / maxHealth;
+            healthFillImage.color = healthGradient.Evaluate(healthFillImage.fillAmount);
+        }
+
+        Debug.Log(
+            $"{gameObject.name} terkena serangan!" +
+            $"\nDamage mentah: {amount}" +
+            $"\nDefense: {defense}" +
+            $"\nDamage akhir: {finalDamage}" +
+            $"\nHP Sebelum: {oldHealth}" +
+            $"\nHP Sesudah: {currentHealth}"
+        );
+
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -105,6 +119,7 @@ public class EnemyBehavior : MonoBehaviour
     private void Die()
     {
         Debug.Log($"{gameObject.name} has died.");
+        onDeath?.Invoke();
         Destroy(gameObject);
     }
 
@@ -128,16 +143,11 @@ public class EnemyBehavior : MonoBehaviour
     private void UpdateFacingDirection(Vector2 direction)
     {
         if (direction.x > 0)
-        {
             transform.localScale = new Vector3(-1, 1, 1);
-        }
         else if (direction.x < 0)
-        {
             transform.localScale = Vector3.one;
-        }
     }
 
-    // Make health bar face camera (for 3D games)
     private void LateUpdate()
     {
         if (healthBarCanvas != null)

@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 8737916126316246465}
   - component: {fileID: 2294559494738203477}
   - component: {fileID: 7817433997766047806}
+  - component: {fileID: 1343388097342400387}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -178,6 +179,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1343388097342400387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4659474212976619148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6561509690eeaaa43821116109d49cff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5427654207655104762
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,9 +388,9 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
+  m_Offset: {x: -0.07437384, y: 0.09090247}
+  m_Size: {x: 1.0413908, y: 1.0413908}
+  m_Direction: 1
 --- !u!50 &8993547522112952782
 Rigidbody2D:
   serializedVersion: 4
@@ -417,11 +430,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4819242dcb8e441a9d0060ac98060a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 50
+  maxHealth: 200
+  currentHealth: 0
   stamina: 100
-  defense: 2
-  moveSpeed: 5.5
+  defense: 0
+  moveSpeed: 7
   contactDamage: 10
   healthBarCanvas: {fileID: 8737916126316246465}
   healthFillImage: {fileID: 6698835179021196751}

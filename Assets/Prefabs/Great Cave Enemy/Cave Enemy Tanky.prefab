@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 6139564610249731682}
   - component: {fileID: 4349474917779889295}
   - component: {fileID: 6672033397249567560}
+  - component: {fileID: 3749131682427484326}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -253,6 +254,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3749131682427484326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5284997905457165292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6561509690eeaaa43821116109d49cff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5560274130437249246
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,12 +429,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4819242dcb8e441a9d0060ac98060a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 300
+  maxHealth: 1000
+  currentHealth: 0
   stamina: 10
-  defense: 20
-  moveSpeed: 2
-  contactDamage: 5
+  defense: 50
+  moveSpeed: 3
+  contactDamage: 15
   healthBarCanvas: {fileID: 6139564610249731682}
   healthFillImage: {fileID: 9105458207761894692}
   healthGradient:

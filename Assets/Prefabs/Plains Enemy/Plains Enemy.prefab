@@ -272,9 +272,9 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
+  m_Offset: {x: -0.0039320667, y: -0.0629443}
+  m_Size: {x: 0.9955293, y: 0.73589045}
+  m_Direction: 1
 --- !u!50 &8993547522112952782
 Rigidbody2D:
   serializedVersion: 4
@@ -315,10 +315,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500
-  health: 100
+  currentHealth: 0
   stamina: 50
-  defense: 5
-  moveSpeed: 8
+  defense: 0
+  moveSpeed: 5
   contactDamage: 20
   healthBarCanvas: {fileID: 8351352050001392744}
   healthFillImage: {fileID: 6324628600418091967}
@@ -399,6 +399,7 @@ GameObject:
   - component: {fileID: 8351352050001392744}
   - component: {fileID: 3932251581608689728}
   - component: {fileID: 2146862869304014018}
+  - component: {fileID: 8888068026826142045}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -490,3 +491,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8888068026826142045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7454436668494904337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6561509690eeaaa43821116109d49cff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

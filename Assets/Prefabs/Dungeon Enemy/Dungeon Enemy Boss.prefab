@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 3}
+  m_AnchoredPosition: {x: -0.5, y: 2.5}
   m_SizeDelta: {x: 4, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1980310594645775252
@@ -88,8 +88,8 @@ GameObject:
   - component: {fileID: 6784409147261332421}
   - component: {fileID: 8993547522112952782}
   - component: {fileID: 3999819462550874660}
-  - component: {fileID: -4574855217962445827}
-  - component: {fileID: 7345486742010106170}
+  - component: {fileID: 984150548959048784}
+  - component: {fileID: 2584727547697413036}
   m_Layer: 0
   m_Name: Dungeon Enemy Boss
   m_TagString: Enemy
@@ -154,7 +154,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 2573ee75e3f9c8e4081f6f5b24328201, type: 3}
+  m_Sprite: {fileID: 1814596582, guid: 48f975adcde86604982f9a693d53c939, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -197,8 +197,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
+  m_Offset: {x: -0.51122665, y: -0.39523435}
+  m_Size: {x: 1.8334274, y: 2.2458472}
   m_Direction: 0
 --- !u!50 &8993547522112952782
 Rigidbody2D:
@@ -239,11 +239,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4819242dcb8e441a9d0060ac98060a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 1000
+  maxHealth: 3000
+  currentHealth: 0
   stamina: 100
-  defense: 35
-  moveSpeed: 5
+  defense: 150
+  moveSpeed: 7
   contactDamage: 20
   healthBarCanvas: {fileID: 579186536218300773}
   healthFillImage: {fileID: 2280876788564444392}
@@ -278,7 +278,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   smoothSpeed: 5
---- !u!114 &-4574855217962445827
+--- !u!114 &984150548959048784
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,8 +290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94dc895383a9ba643ae73c99ddc1d32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debuffsToApply: 1
---- !u!95 &7345486742010106170
+  debuffsToApply: 8
+--- !u!95 &2584727547697413036
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -301,7 +301,7 @@ Animator:
   m_GameObject: {fileID: 5560274130437249246}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 33f2be7c87ea12e4cb864498132ceba0, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9a7a8e0559dc2d240a1d45b411fa558b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -346,7 +346,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 3}
+  m_AnchoredPosition: {x: -0.5, y: 2.5}
   m_SizeDelta: {x: 4, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5406346130542823280
@@ -399,6 +399,7 @@ GameObject:
   - component: {fileID: 579186536218300773}
   - component: {fileID: 6440980329007295691}
   - component: {fileID: 501688164941497144}
+  - component: {fileID: 4382829138066450568}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -490,3 +491,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4382829138066450568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8360235244103585842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6561509690eeaaa43821116109d49cff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

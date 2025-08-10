@@ -272,9 +272,9 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
+  m_Offset: {x: 0.25789142, y: -0.30162305}
+  m_Size: {x: 2.2431695, y: 1.80674}
+  m_Direction: 1
 --- !u!50 &8993547522112952782
 Rigidbody2D:
   serializedVersion: 4
@@ -314,12 +314,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4819242dcb8e441a9d0060ac98060a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 100
+  maxHealth: 500
+  currentHealth: 0
   stamina: 50
-  defense: 5
-  moveSpeed: 3
-  contactDamage: 10
+  defense: 0
+  moveSpeed: 5
+  contactDamage: 20
   healthBarCanvas: {fileID: 8351352050001392744}
   healthFillImage: {fileID: 6324628600418091967}
   healthGradient:
@@ -399,6 +399,7 @@ GameObject:
   - component: {fileID: 8351352050001392744}
   - component: {fileID: 3932251581608689728}
   - component: {fileID: 2146862869304014018}
+  - component: {fileID: 7046250675695161148}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -415,7 +416,7 @@ RectTransform:
   m_GameObject: {fileID: 7454436668494904337}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1777616275385866790}
@@ -490,3 +491,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7046250675695161148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7454436668494904337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6561509690eeaaa43821116109d49cff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

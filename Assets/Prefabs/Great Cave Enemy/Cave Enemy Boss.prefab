@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.5, y: 2.5}
+  m_AnchoredPosition: {x: 0, y: 3}
   m_SizeDelta: {x: 4, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1980310594645775252
@@ -88,8 +88,8 @@ GameObject:
   - component: {fileID: 6784409147261332421}
   - component: {fileID: 8993547522112952782}
   - component: {fileID: 3999819462550874660}
-  - component: {fileID: 984150548959048784}
-  - component: {fileID: 2584727547697413036}
+  - component: {fileID: -4574855217962445827}
+  - component: {fileID: 7345486742010106170}
   m_Layer: 0
   m_Name: Cave Enemy Boss
   m_TagString: Enemy
@@ -154,7 +154,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 1814596582, guid: 48f975adcde86604982f9a693d53c939, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2573ee75e3f9c8e4081f6f5b24328201, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -197,8 +197,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
+  m_Offset: {x: -0.5257063, y: -1.3927791}
+  m_Size: {x: 3.1984062, y: 5.413674}
   m_Direction: 0
 --- !u!50 &8993547522112952782
 Rigidbody2D:
@@ -239,12 +239,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4819242dcb8e441a9d0060ac98060a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 1000
+  maxHealth: 2000
+  currentHealth: 0
   stamina: 100
-  defense: 35
+  defense: 100
   moveSpeed: 5
-  contactDamage: 20
+  contactDamage: 25
   healthBarCanvas: {fileID: 579186536218300773}
   healthFillImage: {fileID: 2280876788564444392}
   healthGradient:
@@ -278,7 +278,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   smoothSpeed: 5
---- !u!114 &984150548959048784
+--- !u!114 &-4574855217962445827
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,8 +290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94dc895383a9ba643ae73c99ddc1d32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debuffsToApply: 8
---- !u!95 &2584727547697413036
+  debuffsToApply: 1
+--- !u!95 &7345486742010106170
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -301,7 +301,7 @@ Animator:
   m_GameObject: {fileID: 5560274130437249246}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9a7a8e0559dc2d240a1d45b411fa558b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 33f2be7c87ea12e4cb864498132ceba0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -346,7 +346,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.5, y: 2.5}
+  m_AnchoredPosition: {x: 0, y: 3}
   m_SizeDelta: {x: 4, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5406346130542823280
@@ -399,6 +399,7 @@ GameObject:
   - component: {fileID: 579186536218300773}
   - component: {fileID: 6440980329007295691}
   - component: {fileID: 501688164941497144}
+  - component: {fileID: 6050275742033561568}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -415,7 +416,7 @@ RectTransform:
   m_GameObject: {fileID: 8360235244103585842}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4895899293022764571}
@@ -490,3 +491,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6050275742033561568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8360235244103585842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6561509690eeaaa43821116109d49cff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
