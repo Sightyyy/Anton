@@ -20,7 +20,8 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] private float smoothSpeed = 5f;
 
     private Rigidbody2D rb;
-    private Transform player;
+    private Animator animator;
+    public Transform player;
     public event Action onDeath;
     private float targetFillAmount = 1f;
 
@@ -30,6 +31,12 @@ public class EnemyBehavior : MonoBehaviour
         currentHealth = maxHealth;
         InitializeHealthBar();
         FindPlayer();
+
+        animator = GetComponent<Animator>();
+        if (animator == null)
+        {
+            Debug.LogWarning($"{gameObject.name} tidak memiliki Animator. Animasi tidak akan dimainkan.");
+        }
     }
 
     private void InitializeHealthBar()
@@ -70,9 +77,18 @@ public class EnemyBehavior : MonoBehaviour
     private void UpdateMovement()
     {
         Vector2 direction = (player.position - transform.position).normalized;
+
+        bool isMoving = direction.sqrMagnitude > 0.01f;
+
+        if (animator != null)
+        {
+            animator.SetInteger("State", isMoving ? 1 : 0);
+        }
+
         UpdateFacingDirection(direction);
         Move(direction);
     }
+
 
     private void SmoothHealthBar()
     {
@@ -132,6 +148,11 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            if (animator != null)
+            {
+                animator.Play("Attack");
+            }
+
             var playerDamage = collision.GetComponent<DamageTaken>();
             if (playerDamage != null)
             {
