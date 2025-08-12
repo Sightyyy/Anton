@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4834287107329747371}
   - component: {fileID: 52723819218457228}
   m_Layer: 0
-  m_Name: BackgroundDecor
+  m_Name: Cave Torch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

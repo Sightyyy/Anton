@@ -5983,8 +5983,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  maxHealth: 10000
-  health: 10000
+  maxHealth: 5000
+  health: 5000
   stamina: 100
   visual: {fileID: 6908639298021318627}
   skillCooldownImage: {fileID: 1276667788}

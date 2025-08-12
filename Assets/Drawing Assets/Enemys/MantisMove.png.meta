@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0d67fcf329b6ae94193026c74955d73e
+guid: 76adc3b3a449a874a9f9fbba28376e5b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,11 +110,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mantis_0
+      name: MantisMove_0
       rect:
         serializedVersion: 2
         x: 1
-        y: 32
+        y: 96
         width: 30
         height: 30
       alignment: 0
@@ -124,8 +124,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d96fbbf7dcc24074fbe820479784510a
-      internalID: -1159168474
+      spriteID: d8e2c798916e55f4cbef3f3815c99521
+      internalID: 1327683981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MantisMove_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 96
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e0270f2d93631e4db76fd8102e6da34
+      internalID: 89520131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MantisMove_2
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 96
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19cb78c1dd9e4ce428db8ded0ff92725
+      internalID: -328594838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MantisMove_3
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 96
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 872ca85fb3e5a0945b036874ebcb860b
+      internalID: -1682594828
       vertices: []
       indices: 
       edges: []
@@ -141,10 +204,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Mantis_0: -1159168474
-      Mantis_1: -1593951965
-      Mantis_2: 1480914462
-      Mantis_3: 996683515
+      MantisMove_0: 1327683981
+      MantisMove_1: 89520131
+      MantisMove_10: -356865156
+      MantisMove_11: 1651686327
+      MantisMove_12: 1730075812
+      MantisMove_13: -1319134598
+      MantisMove_14: -36710091
+      MantisMove_15: 2088123659
+      MantisMove_2: -328594838
+      MantisMove_3: -1682594828
+      MantisMove_4: 1573788601
+      MantisMove_5: 2018274430
+      MantisMove_6: 888681669
+      MantisMove_7: -1328576324
+      MantisMove_8: -193676680
+      MantisMove_9: -1094488217
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
