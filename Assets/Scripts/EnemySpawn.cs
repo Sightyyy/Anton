@@ -16,11 +16,17 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Timing")]
     public float timeBetweenSpawns = 2f;
     public float waveDelay = 3f;
+    public float timeBetweenGroupSpawns = 0.5f;
 
     [Header("Wave Settings")]
     public int currentWave = 1;
     public int enemiesPerWave = 10;
     private int enemiesKilledThisWave = 0;
+    private int enemiesSpawnedThisWave = 0;
+
+    [Header("Group Spawning")]
+    public int minGroupSize = 3;
+    public int maxGroupSize = 4;
 
     [Header("Limits")]
     private const int maxActiveEnemies = 150;
@@ -32,6 +38,7 @@ public class EnemySpawner : MonoBehaviour
     private float spawnTimer;
     private int activeEnemies = 0;
     private bool spawningEnabled = true;
+    private bool isSpawningGroup = false;
 
     private void Start()
     {
@@ -40,34 +47,52 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if (!spawningEnabled) return;
+        if (!spawningEnabled || isSpawningGroup) return;
 
         spawnTimer += Time.deltaTime;
 
         if (spawnTimer >= timeBetweenSpawns &&
             activeEnemies < maxActiveEnemies &&
-            (activeEnemies + enemiesKilledThisWave) < enemiesPerWave)
+            enemiesSpawnedThisWave < enemiesPerWave)
         {
-            SpawnEnemy();
+            StartCoroutine(SpawnEnemyGroup());
             spawnTimer = 0f;
         }
     }
 
-    private void SpawnEnemy()
+    private IEnumerator SpawnEnemyGroup()
     {
-        // safety checks
-        if (player == null)
+        isSpawningGroup = true;
+        int remainingEnemies = enemiesPerWave - enemiesSpawnedThisWave;
+
+        int groupSize = Mathf.Min(
+            Random.Range(minGroupSize, maxGroupSize + 1),
+            remainingEnemies
+        );
+
+        if (remainingEnemies - groupSize > 0 &&
+            remainingEnemies - groupSize < minGroupSize)
         {
-            Debug.LogError("EnemySpawner: Player belum di-assign!");
-            return;
+            groupSize = remainingEnemies;
         }
 
-        if ((IsBossWave() && bossPrefabs.Length == 0) || (!IsBossWave() && enemyPrefabs.Length == 0))
+        for (int i = 0; i < groupSize; i++)
         {
-            Debug.LogError("EnemySpawner: Prefab tidak tersedia untuk tipe wave ini.");
-            return;
+            if (activeEnemies >= maxActiveEnemies ||
+                enemiesSpawnedThisWave >= enemiesPerWave)
+            {
+                break;
+            }
+
+            SpawnSingleEnemy();
+            yield return new WaitForSeconds(timeBetweenGroupSpawns);
         }
 
+        isSpawningGroup = false;
+    }
+
+    private void SpawnSingleEnemy()
+    {
         Vector2 spawnPos;
         int safety = 0;
         do
@@ -87,7 +112,6 @@ public class EnemySpawner : MonoBehaviour
 
         GameObject enemy = Instantiate(prefabToSpawn, spawnPos, Quaternion.identity);
 
-        // attach event kalau ada
         EnemyBehavior eb = enemy.GetComponent<EnemyBehavior>();
         if (eb != null)
         {
@@ -95,6 +119,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         activeEnemies++;
+        enemiesSpawnedThisWave++;
         UpdateUI();
     }
 
@@ -123,6 +148,7 @@ public class EnemySpawner : MonoBehaviour
 
         currentWave++;
         enemiesKilledThisWave = 0;
+        enemiesSpawnedThisWave = 0;
 
         if (IsBossWave())
             enemiesPerWave = 1;

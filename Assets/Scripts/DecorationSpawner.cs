@@ -92,7 +92,6 @@ public class DecorationSpawner : MonoBehaviour
 
     void ManageDecorations()
     {
-        // Despawn distant decorations
         for (int i = activeDecorations.Count - 1; i >= 0; i--)
         {
             GameObject deco = activeDecorations[i];
@@ -104,7 +103,6 @@ public class DecorationSpawner : MonoBehaviour
             }
         }
 
-        // Spawn new decorations if needed
         if (activeDecorations.Count < maxActiveDecorations)
         {
             TrySpawnDecorations();
@@ -153,7 +151,7 @@ public class DecorationSpawner : MonoBehaviour
 
         GameObject deco = decorationPool.Dequeue();
         deco.transform.position = position;
-        deco.transform.SetParent(decorationsParent); // Ensure proper parenting
+        deco.transform.SetParent(decorationsParent);
         deco.SetActive(true);
         activeDecorations.Add(deco);
         spawnedPositions.Add(position);

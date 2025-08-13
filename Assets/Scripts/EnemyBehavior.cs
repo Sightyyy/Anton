@@ -24,10 +24,14 @@ public class EnemyBehavior : MonoBehaviour
     public Transform player;
     public event Action onDeath;
     private float targetFillAmount = 1f;
+    private float stoppingDistance = 0.5f;
+    private float attackCooldown = 1f;
+    private float lastAttackTime;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
         currentHealth = maxHealth;
         InitializeHealthBar();
         FindPlayer();
@@ -76,17 +80,17 @@ public class EnemyBehavior : MonoBehaviour
 
     private void UpdateMovement()
     {
+        if (player == null) return;
+
         Vector2 direction = (player.position - transform.position).normalized;
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        bool isMoving = direction.sqrMagnitude > 0.01f;
-
-        if (animator != null)
+        if (distanceToPlayer > stoppingDistance)
         {
-            animator.SetInteger("State", isMoving ? 1 : 0);
+            Move(direction);
         }
 
         UpdateFacingDirection(direction);
-        Move(direction);
     }
 
 
@@ -156,17 +160,39 @@ public class EnemyBehavior : MonoBehaviour
             var playerDamage = collision.GetComponent<DamageTaken>();
             if (playerDamage != null)
             {
+                Debug.Log("First damage to player");
                 playerDamage.ApplyDamage(contactDamage);
+                lastAttackTime = Time.time;
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && Time.time > lastAttackTime + attackCooldown)
+        {
+            if (animator != null)
+            {
+                animator.Play("Attack");
+            }
+
+            var playerDamage = collision.GetComponent<DamageTaken>();
+            if (playerDamage != null)
+            {
+                Debug.Log("Gives more damage to player");
+                playerDamage.ApplyDamage(contactDamage);
+                lastAttackTime = Time.time;
             }
         }
     }
 
     private void UpdateFacingDirection(Vector2 direction)
     {
-        if (direction.x > 0)
-            transform.localScale = new Vector3(-1, 1, 1);
-        else if (direction.x < 0)
-            transform.localScale = Vector3.one;
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.flipX = (direction.x > 0);
+        }
     }
 
     private void LateUpdate()

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,6 +7,9 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private Image transitionImage;
+    [SerializeField] private List<Button> levelButtons;
+    [SerializeField] private List<GameObject> lockedImages;
+    [SerializeField] private List<string> levelSceneNames = new List<string> { "Plains", "Night Woods", "Volcano Hills" };
     private float transitionTime = 1.0f;
 
     private AudioCollection audioCollection;
@@ -26,11 +30,38 @@ public class MainMenu : MonoBehaviour
             if (menuAnimator == null)
                 Debug.LogError("Animator component not found on Main Menu object!");
         }
+
+        InitializeLevelButtons();
     }
 
     private void Start()
     {
         audioCollection?.PlayBGM(audioCollection.mainMenu);
+        InitializeLevelButtons();
+    }
+
+    private void InitializeLevelButtons()
+    {
+        if (levelButtons.Count != levelSceneNames.Count || lockedImages.Count != levelSceneNames.Count)
+        {
+            Debug.LogError("Level buttons, locked images, and scene names counts don't match!");
+            return;
+        }
+
+        int levelsCompleted = DataManager.Instance.LevelsCompleted;
+
+        for (int i = 0; i < levelButtons.Count; i++)
+        {
+            bool levelUnlocked = (i <= levelsCompleted);
+
+            levelButtons[i].interactable = levelUnlocked;
+
+            lockedImages[i].SetActive(!levelUnlocked);
+
+            string sceneName = levelSceneNames[i];
+            levelButtons[i].onClick.RemoveAllListeners();
+            levelButtons[i].onClick.AddListener(() => PlayGame(sceneName));
+        }
     }
 
     public void PlayGame(string sceneName)

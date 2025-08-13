@@ -261,7 +261,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5284997905457165292}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6561509690eeaaa43821116109d49cff, type: 3}
   m_Name: 
@@ -469,6 +469,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   smoothSpeed: 5
+  player: {fileID: 0}
 --- !u!114 &1935044074473212131
 MonoBehaviour:
   m_ObjectHideFlags: 0

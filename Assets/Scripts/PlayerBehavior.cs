@@ -10,10 +10,11 @@ public class PlayerBehavior : MonoBehaviour
 
     [Header("Player Stats")]
     [Tooltip("Maximum HP")]
-    public int maxHealth = 10000;
+    public int maxHealth;
     [Tooltip("Current HP")]
     public int health;
     public int stamina = 100;
+    public float healingPercent = 0.07f;
 
     [Header("Visual Reference")]
     public GameObject visual;
@@ -21,8 +22,9 @@ public class PlayerBehavior : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movementInput;
 
-    public Image skillCooldownImage;
-    public Image ultimateCooldownImage;
+    [SerializeField] private Image skillCooldownImage;
+    [SerializeField] private Image ultimateCooldownImage;
+    [SerializeField] private Image healingCooldownImage;
 
     public bool isWeakened = false;
     public bool isBurning = false;
@@ -47,6 +49,7 @@ public class PlayerBehavior : MonoBehaviour
     private float staminaRegenTimer = 0f;
     private float skillCooldownTimer = 0f;
     private float ultimateCooldownTimer = 0f;
+    private float healingCooldownTimer = 0f;
 
     private Animator anim;
 
@@ -81,6 +84,7 @@ public class PlayerBehavior : MonoBehaviour
         HandleStaminaRegen();
         HandleSkillCooldown();
         HandleUltimateCooldown();
+        HandleHealingCooldown();
         HandleKnockbackCooldown();
         UpdateAnimatorState();
     }
@@ -115,6 +119,9 @@ public class PlayerBehavior : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton0))
             HandleDash();
+
+        if (Input.GetKeyDown(KeyCode.E))
+            StartCoroutine(HandleHealing());
     }
 
     private IEnumerator HandleBasicAttack()
@@ -210,6 +217,40 @@ public class PlayerBehavior : MonoBehaviour
         else if (ultimateCooldownImage != null)
         {
             ultimateCooldownImage.fillAmount = 0f;
+        }
+    }
+
+    private IEnumerator HandleHealing()
+    {
+        if (isDead || isDoingAction || healingCooldownTimer > 0f) yield break;
+
+        int healAmount = Mathf.CeilToInt(maxHealth * healingPercent);
+        Heal(healAmount);
+
+        healingCooldownTimer = 7f;
+        if (healingCooldownImage) healingCooldownImage.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(0f);
+    }
+
+    private void HandleHealingCooldown()
+    {
+        if (healingCooldownTimer > 0f)
+        {
+            healingCooldownTimer -= Time.deltaTime;
+
+            if (healingCooldownImage != null)
+            {
+                healingCooldownImage.fillAmount = healingCooldownTimer / 7;
+            }
+        }
+        else if (healingCooldownTimer <= 0f && healingCooldownImage != null)
+        {
+            healingCooldownImage.gameObject.SetActive(false);
+        }
+        else if (healingCooldownImage != null)
+        {
+            healingCooldownImage.fillAmount = 0f;
         }
     }
 
