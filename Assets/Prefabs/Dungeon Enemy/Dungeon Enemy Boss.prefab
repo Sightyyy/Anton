@@ -278,6 +278,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   smoothSpeed: 5
+  player: {fileID: 0}
 --- !u!114 &984150548959048784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,7 +302,7 @@ Animator:
   m_GameObject: {fileID: 5560274130437249246}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9a7a8e0559dc2d240a1d45b411fa558b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 409269b47e782c84b906d035af5e31fc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -399,7 +400,6 @@ GameObject:
   - component: {fileID: 579186536218300773}
   - component: {fileID: 6440980329007295691}
   - component: {fileID: 501688164941497144}
-  - component: {fileID: 4382829138066450568}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -491,15 +491,3 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4382829138066450568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8360235244103585842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6561509690eeaaa43821116109d49cff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

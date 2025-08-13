@@ -387,7 +387,7 @@ Animator:
   m_GameObject: {fileID: 5560274130437249246}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 33f2be7c87ea12e4cb864498132ceba0, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5ea2b8861144396489b1d3598e21ea20, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -485,7 +485,6 @@ GameObject:
   - component: {fileID: 579186536218300773}
   - component: {fileID: 6440980329007295691}
   - component: {fileID: 501688164941497144}
-  - component: {fileID: 6050275742033561568}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -577,15 +576,3 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6050275742033561568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8360235244103585842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6561509690eeaaa43821116109d49cff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
