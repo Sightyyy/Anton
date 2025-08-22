@@ -10,6 +10,7 @@ public class GameMenu : MonoBehaviour
     public float transitionTime = 1.0f;
     private bool paused = false;
     AudioCollection audioCollection;
+    [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject pausePanel;
     private PlayerBehavior playerBehavior;
 
@@ -28,9 +29,11 @@ public class GameMenu : MonoBehaviour
 
     private void Update()
     {
-        if (playerBehavior != null && playerBehavior.isDead) return; // Mati = tidak bisa pause
+        OnPlayerDead();
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (playerBehavior != null) return;
+
+        if (Input.GetKeyDown(KeyCode.Escape) && playerBehavior.isDead!)
         {
             if (!paused)
             {
@@ -45,8 +48,16 @@ public class GameMenu : MonoBehaviour
         }
     }
 
-
-
+    private void OnPlayerDead()
+    {
+        if (gameOverPanel != null && playerBehavior.isDead)
+        {
+            StartCoroutine(NormalTransition());
+            gameOverPanel.SetActive(true);
+            audioCollection.PlayBGM(audioCollection.gameOver);
+            Time.timeScale = 0f;
+        }
+    }
 
     public void ReturnToMainMenu(string sceneName)
     {
@@ -77,6 +88,13 @@ public class GameMenu : MonoBehaviour
     {
         yield return StartCoroutine(FadeToBlack());
         SceneManager.LoadScene(sceneName);
+        yield return StartCoroutine(FadeFromBlack());
+    }
+
+    private IEnumerator NormalTransition()
+    {
+        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(FadeToBlack());
         yield return StartCoroutine(FadeFromBlack());
     }
 

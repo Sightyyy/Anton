@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3374af528df30ed4c80408afef819da7
+guid: 5b53c7d09990d774fb8d12ac80066ff1
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,7 +121,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: post-plains_Frame_0
+  - name: post-cave_Frame_0
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -132,7 +132,7 @@ ScriptedImporter:
       y: 4
       width: 960
       height: 540
-    spriteID: 888cd798bfb38a84d9e286688fb0eea6
+    spriteID: 801a2adba368b9046b2b6ef57c0fd002
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,7 +141,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: post-plains_Frame_1
+  - name: post-cave_Frame_1
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -152,7 +152,7 @@ ScriptedImporter:
       y: 552
       width: 960
       height: 540
-    spriteID: 803a2d80348e3ea43b416d914fd7e724
+    spriteID: 42f85a1a202764f49b1f746b7507dd2d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -161,7 +161,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 552}
-  - name: post-plains_Frame_2
+  - name: post-cave_Frame_2
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -172,7 +172,7 @@ ScriptedImporter:
       y: 1100
       width: 960
       height: 540
-    spriteID: 244a02cf512f5b1488f33a8c48013675
+    spriteID: 021ffb3761e47cc46ba39440eb01062a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -181,18 +181,18 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 1100}
-  - name: post-plains_Frame_3
+  - name: post-cave_Frame_3
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 1648
+      x: 972
+      y: 4
       width: 960
       height: 540
-    spriteID: d1d0c05c54807fd40875e5eb731ad889
+    spriteID: c5f2a8dba6e38db459dc85ec5ea96138
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -200,19 +200,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 1648}
-  - name: post-plains_Frame_4
+    uvTransform: {x: 972, y: 4}
+  - name: post-cave_Frame_4
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 2196
+      x: 972
+      y: 552
       width: 960
       height: 540
-    spriteID: cb4a9e920b233b44fa4b3e329f5784d9
+    spriteID: e9867d713fef3354eb5af67b7ce7ae15
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -220,19 +220,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 2196}
-  - name: post-plains_Frame_5
+    uvTransform: {x: 972, y: 552}
+  - name: post-cave_Frame_5
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 2744
+      x: 972
+      y: 1100
       width: 960
       height: 540
-    spriteID: 88736bac73005b74fa9b759a0a5b449f
+    spriteID: 0851ae71456b6bf47996674da329cab0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -240,37 +240,17 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 2744}
-  - name: post-plains_Frame_6
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 3292
-      width: 960
-      height: 540
-    spriteID: 1129771cd3f2e174c9e679fee43bde06
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 3292}
+    uvTransform: {x: 972, y: 1100}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -461220870
-    name: post-plains
+    guid: -1888286546
+    name: post-cave
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: post-plains_Frame_0
+    - name: post-cave_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -278,8 +258,8 @@ ScriptedImporter:
         y: 0
         width: 960
         height: 540
-      spriteId: 888cd798bfb38a84d9e286688fb0eea6
-    - name: post-plains_Frame_1
+      spriteId: 801a2adba368b9046b2b6ef57c0fd002
+    - name: post-cave_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -287,8 +267,8 @@ ScriptedImporter:
         y: 0
         width: 960
         height: 540
-      spriteId: 803a2d80348e3ea43b416d914fd7e724
-    - name: post-plains_Frame_2
+      spriteId: 42f85a1a202764f49b1f746b7507dd2d
+    - name: post-cave_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -296,8 +276,8 @@ ScriptedImporter:
         y: 0
         width: 960
         height: 540
-      spriteId: 244a02cf512f5b1488f33a8c48013675
-    - name: post-plains_Frame_3
+      spriteId: 021ffb3761e47cc46ba39440eb01062a
+    - name: post-cave_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -305,8 +285,8 @@ ScriptedImporter:
         y: 0
         width: 960
         height: 540
-      spriteId: d1d0c05c54807fd40875e5eb731ad889
-    - name: post-plains_Frame_4
+      spriteId: c5f2a8dba6e38db459dc85ec5ea96138
+    - name: post-cave_Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -314,8 +294,8 @@ ScriptedImporter:
         y: 0
         width: 960
         height: 540
-      spriteId: cb4a9e920b233b44fa4b3e329f5784d9
-    - name: post-plains_Frame_5
+      spriteId: e9867d713fef3354eb5af67b7ce7ae15
+    - name: post-cave_Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -323,16 +303,7 @@ ScriptedImporter:
         y: 0
         width: 960
         height: 540
-      spriteId: 88736bac73005b74fa9b759a0a5b449f
-    - name: post-plains_Frame_6
-      frameIndex: 6
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 960
-        height: 540
-      spriteId: 1129771cd3f2e174c9e679fee43bde06
+      spriteId: 0851ae71456b6bf47996674da329cab0
     linkedCells: []
     parentIndex: -1
   platformSettings: []

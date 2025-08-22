@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3374af528df30ed4c80408afef819da7
+guid: 7869ec747876ffc48b82961c6efc9f42
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,7 +121,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: post-plains_Frame_0
+  - name: pre-cave_Frame_0
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -132,7 +132,7 @@ ScriptedImporter:
       y: 4
       width: 960
       height: 540
-    spriteID: 888cd798bfb38a84d9e286688fb0eea6
+    spriteID: 4e80d6e4394b6e646b50b13d193cfe94
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,7 +141,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: post-plains_Frame_1
+  - name: pre-cave_Frame_1
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -152,7 +152,7 @@ ScriptedImporter:
       y: 552
       width: 960
       height: 540
-    spriteID: 803a2d80348e3ea43b416d914fd7e724
+    spriteID: a9701aba855c50b44832423241410d76
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -161,7 +161,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 552}
-  - name: post-plains_Frame_2
+  - name: pre-cave_Frame_2
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -172,7 +172,7 @@ ScriptedImporter:
       y: 1100
       width: 960
       height: 540
-    spriteID: 244a02cf512f5b1488f33a8c48013675
+    spriteID: 767d35e94fe5d1d4692f5d762b20c13c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -181,7 +181,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 1100}
-  - name: post-plains_Frame_3
+  - name: pre-cave_Frame_3
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -192,7 +192,7 @@ ScriptedImporter:
       y: 1648
       width: 960
       height: 540
-    spriteID: d1d0c05c54807fd40875e5eb731ad889
+    spriteID: 0ae81dc81fd8e5a4c9bb1196cdc389ed
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -201,7 +201,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 1648}
-  - name: post-plains_Frame_4
+  - name: pre-cave_Frame_4
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -212,7 +212,7 @@ ScriptedImporter:
       y: 2196
       width: 960
       height: 540
-    spriteID: cb4a9e920b233b44fa4b3e329f5784d9
+    spriteID: 6fb7e338d39363d4ca66d69c8273d86f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -221,7 +221,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 2196}
-  - name: post-plains_Frame_5
+  - name: pre-cave_Frame_5
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -232,7 +232,7 @@ ScriptedImporter:
       y: 2744
       width: 960
       height: 540
-    spriteID: 88736bac73005b74fa9b759a0a5b449f
+    spriteID: 6b3f7a443889bff40aae2108650c6477
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -241,7 +241,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 2744}
-  - name: post-plains_Frame_6
+  - name: pre-cave_Frame_6
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -252,7 +252,7 @@ ScriptedImporter:
       y: 3292
       width: 960
       height: 540
-    spriteID: 1129771cd3f2e174c9e679fee43bde06
+    spriteID: 2233557fed1ac194088e3c757fec443d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -264,13 +264,13 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -461220870
-    name: post-plains
+    guid: -2068900833
+    name: pre-cave
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: post-plains_Frame_0
+    - name: pre-cave_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -278,8 +278,8 @@ ScriptedImporter:
         y: 0
         width: 960
         height: 540
-      spriteId: 888cd798bfb38a84d9e286688fb0eea6
-    - name: post-plains_Frame_1
+      spriteId: 4e80d6e4394b6e646b50b13d193cfe94
+    - name: pre-cave_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -287,8 +287,8 @@ ScriptedImporter:
         y: 0
         width: 960
         height: 540
-      spriteId: 803a2d80348e3ea43b416d914fd7e724
-    - name: post-plains_Frame_2
+      spriteId: a9701aba855c50b44832423241410d76
+    - name: pre-cave_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -296,8 +296,8 @@ ScriptedImporter:
         y: 0
         width: 960
         height: 540
-      spriteId: 244a02cf512f5b1488f33a8c48013675
-    - name: post-plains_Frame_3
+      spriteId: 767d35e94fe5d1d4692f5d762b20c13c
+    - name: pre-cave_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -305,8 +305,8 @@ ScriptedImporter:
         y: 0
         width: 960
         height: 540
-      spriteId: d1d0c05c54807fd40875e5eb731ad889
-    - name: post-plains_Frame_4
+      spriteId: 0ae81dc81fd8e5a4c9bb1196cdc389ed
+    - name: pre-cave_Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -314,8 +314,8 @@ ScriptedImporter:
         y: 0
         width: 960
         height: 540
-      spriteId: cb4a9e920b233b44fa4b3e329f5784d9
-    - name: post-plains_Frame_5
+      spriteId: 6fb7e338d39363d4ca66d69c8273d86f
+    - name: pre-cave_Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -323,8 +323,8 @@ ScriptedImporter:
         y: 0
         width: 960
         height: 540
-      spriteId: 88736bac73005b74fa9b759a0a5b449f
-    - name: post-plains_Frame_6
+      spriteId: 6b3f7a443889bff40aae2108650c6477
+    - name: pre-cave_Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -332,7 +332,7 @@ ScriptedImporter:
         y: 0
         width: 960
         height: 540
-      spriteId: 1129771cd3f2e174c9e679fee43bde06
+      spriteId: 2233557fed1ac194088e3c757fec443d
     linkedCells: []
     parentIndex: -1
   platformSettings: []

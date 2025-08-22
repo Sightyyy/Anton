@@ -9,11 +9,10 @@ public class PlayerBehavior : MonoBehaviour
     public float moveSpeed = 5f;
 
     [Header("Player Stats")]
-    [Tooltip("Maximum HP")]
     public int maxHealth;
-    [Tooltip("Current HP")]
     public int health;
-    public int stamina = 100;
+    public int maxStamina;
+    public int stamina;
     public float healingPercent = 0.07f;
 
     [Header("Visual Reference")]

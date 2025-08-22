@@ -21,6 +21,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator animator;
+    private PlayerBehavior playerBehavior;
     public Transform player;
     public event Action onDeath;
     private float targetFillAmount = 1f;
@@ -62,6 +63,7 @@ public class EnemyBehavior : MonoBehaviour
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
+            playerBehavior = playerObj.GetComponent<PlayerBehavior>();
             player = playerObj.transform;
         }
         else
@@ -75,7 +77,16 @@ public class EnemyBehavior : MonoBehaviour
         if (player == null) return;
 
         UpdateMovement();
+        CheckPlayerDeath();
         SmoothHealthBar();
+    }
+
+    private void CheckPlayerDeath()
+    {
+        if (playerBehavior != null && playerBehavior.isDead)
+        {
+            player = null;
+        }
     }
 
     private void UpdateMovement()
