@@ -4,6 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(EnemyBehavior))]
+[RequireComponent(typeof(Animator))]
 public class MinotaurSkill : MonoBehaviour
 {
     [Header("Skill Settings")]
@@ -13,6 +14,7 @@ public class MinotaurSkill : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private EnemyBehavior enemyBehavior;
+    private Animator animator;
 
     private bool isSkillOnCooldown = false;
 
@@ -21,6 +23,7 @@ public class MinotaurSkill : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         enemyBehavior = GetComponent<EnemyBehavior>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -45,25 +48,38 @@ public class MinotaurSkill : MonoBehaviour
     {
         isSkillOnCooldown = true;
 
-        // Ambil stats original (asumsinya EnemyBehavior pakai int)
-        int originalDamage = enemyBehavior.contactDamage;
-        int originalDefense = enemyBehavior.defense;
+        // Pilih skill random (3 jenis step)
+        int chosenSkill = Random.Range(0, 3);
 
-        // Step 1: Freeze + warna merah + damage x2 + defense -75%
-        rb.simulated = false;
-        spriteRenderer.color = Color.red;
-        enemyBehavior.contactDamage = Mathf.RoundToInt(originalDamage * 2f);
-        enemyBehavior.defense = Mathf.RoundToInt(originalDefense * 0.25f); // 75% berkurang
+        // Aktifkan animasi
+        
 
-        yield return new WaitForSeconds(1f); // durasi freeze
+        if (chosenSkill == 0)
+        {
+            // === Step 1: Buff Mode (damage x2, defense -75%) ===
+            int originalDamage = enemyBehavior.contactDamage;
+            int originalDefense = enemyBehavior.defense;
 
-        rb.simulated = true; // aktifkan kembali rigidbody
-        spriteRenderer.color = Color.white; // kembalikan warna
+            rb.simulated = false;
+            spriteRenderer.color = Color.red;
+            enemyBehavior.contactDamage = Mathf.RoundToInt(originalDamage * 2f);
+            enemyBehavior.defense = Mathf.RoundToInt(originalDefense * 0.25f);
 
-        // Defense tetap rendah selama 15 detik
-        yield return new WaitForSeconds(15f);
-        enemyBehavior.contactDamage = originalDamage;
-        enemyBehavior.defense = originalDefense;
+            yield return new WaitForSeconds(1f); // freeze singkat
+
+            rb.simulated = true;
+            spriteRenderer.color = Color.white;
+
+            // Tahan efek 15 detik
+            yield return new WaitForSeconds(15f);
+
+            enemyBehavior.contactDamage = originalDamage;
+            enemyBehavior.defense = originalDefense;
+        }
+        else if (chosenSkill == 1)
+        {
+            animator.SetTrigger("Skill");
+        }
 
         isSkillOnCooldown = false;
     }

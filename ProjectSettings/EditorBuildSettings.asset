@@ -9,6 +9,30 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/Cutscenes/PrePlains.unity
+    guid: a36441e62b035fd4fbd6ecccb54228b9
+  - enabled: 1
     path: Assets/Scenes/Plains.unity
     guid: 31e2f965648919247b49f9bb942a7cb5
+  - enabled: 1
+    path: Assets/Scenes/Cutscenes/PostPlains.unity
+    guid: 994705b4d91399e46adb5c225d754698
+  - enabled: 1
+    path: Assets/Scenes/Cutscenes/PreCave.unity
+    guid: c8424173d76d5134f94e1e6243bc09bb
+  - enabled: 1
+    path: Assets/Scenes/Cave.unity
+    guid: 4df0f3c6b49fad644b82f1178a5fddc9
+  - enabled: 1
+    path: Assets/Scenes/Cutscenes/PostCave.unity
+    guid: 2ed6aae05f09d484ebccb6a13a7cdf84
+  - enabled: 1
+    path: Assets/Scenes/Cutscenes/PreDungeon.unity
+    guid: 06e4a9813ee7a9a4b9788fc6cd204fb7
+  - enabled: 1
+    path: Assets/Scenes/Dungeon.unity
+    guid: 6501d38ed86c9db4a9f60b96bf7f7693
+  - enabled: 1
+    path: Assets/Scenes/Cutscenes/Ending.unity
+    guid: 9a697cb85ab12014cb1632a8cc82ee9c
   m_configObjects: {}

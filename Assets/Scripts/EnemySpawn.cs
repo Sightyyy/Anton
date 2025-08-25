@@ -20,16 +20,17 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Wave Settings")]
     public int currentWave = 1;
+    public int maxWave;
     public int enemiesPerWave = 10;
-    private int enemiesKilledThisWave = 0;
+    public int enemiesKilledThisWave = 0;
     private int enemiesSpawnedThisWave = 0;
 
     [Header("Group Spawning")]
-    public int minGroupSize = 3;
-    public int maxGroupSize = 4;
+    public int minGroupSize;
+    public int maxGroupSize;
 
     [Header("Limits")]
-    private const int maxActiveEnemies = 150;
+    private const int maxActiveEnemies = 100;
 
     [Header("UI")]
     public TMP_Text waveText;
@@ -50,6 +51,13 @@ public class EnemySpawner : MonoBehaviour
         if (!spawningEnabled || isSpawningGroup) return;
 
         spawnTimer += Time.deltaTime;
+
+        if (currentWave == maxWave && enemiesSpawnedThisWave < enemiesPerWave)
+        {
+            SpawnBossOnly();
+            spawnTimer = 0f;
+            return;
+        }
 
         if (spawnTimer >= timeBetweenSpawns &&
             activeEnemies < maxActiveEnemies &&
@@ -123,9 +131,29 @@ public class EnemySpawner : MonoBehaviour
         UpdateUI();
     }
 
+    private void SpawnBossOnly()
+    {
+        Vector2 spawnPos = (Vector2)player.position + Random.insideUnitCircle.normalized * Random.Range(minSpawnDistance, maxSpawnDistance);
+
+        GameObject boss = Instantiate(bossPrefabs[Random.Range(0, bossPrefabs.Length)], spawnPos, Quaternion.identity);
+
+        EnemyBehavior eb = boss.GetComponent<EnemyBehavior>();
+        if (eb != null)
+        {
+            eb.onDeath += OnEnemyKilled;
+        }
+
+        activeEnemies = 1;
+        enemiesSpawnedThisWave = 1;
+        enemiesPerWave = 1;
+        UpdateUI();
+
+        spawningEnabled = false;
+    }
+
     private bool IsBossWave()
     {
-        return currentWave % 10 == 0;
+        return currentWave % maxWave == 0;
     }
 
     private void OnEnemyKilled()
@@ -134,7 +162,7 @@ public class EnemySpawner : MonoBehaviour
         enemiesKilledThisWave++;
         UpdateUI();
 
-        if (enemiesKilledThisWave >= enemiesPerWave)
+        if (enemiesKilledThisWave >= enemiesPerWave && currentWave < maxWave)
         {
             StartCoroutine(StartNextWaveWithDelay());
         }

@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: -4574855217962445827}
   - component: {fileID: 7345486742010106170}
   - component: {fileID: 2338196280995791533}
+  - component: {fileID: -7560689247787686967}
   m_Layer: 0
   m_Name: Cave Enemy Boss
   m_TagString: Enemy
@@ -325,10 +326,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4819242dcb8e441a9d0060ac98060a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2000
-  currentHealth: 2000
+  maxHealth: 20000
+  currentHealth: 20000
   stamina: 100
-  defense: 100
+  defense: 0
   moveSpeed: 5
   contactDamage: 25
   healthBarCanvas: {fileID: 579186536218300773}
@@ -411,6 +412,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80be77b0e29db2b4fb84dcf8cb69f677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-7560689247787686967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5560274130437249246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 974d29a96992bcf45bc329b7ab177cde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillCooldown: 10
+  skillChance: 0.3
 --- !u!1 &8123646587490273899
 GameObject:
   m_ObjectHideFlags: 0

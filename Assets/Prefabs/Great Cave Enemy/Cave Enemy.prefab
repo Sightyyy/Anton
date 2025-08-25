@@ -353,6 +353,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   smoothSpeed: 5
+  player: {fileID: 0}
 --- !u!114 &-1167147038950016580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,7 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94dc895383a9ba643ae73c99ddc1d32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debuffsToApply: 0
+  debuffsToApply: 4
 --- !u!95 &3365564038127122843
 Animator:
   serializedVersion: 5
@@ -399,7 +400,6 @@ GameObject:
   - component: {fileID: 8351352050001392744}
   - component: {fileID: 3932251581608689728}
   - component: {fileID: 2146862869304014018}
-  - component: {fileID: 7046250675695161148}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -491,15 +491,3 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7046250675695161148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7454436668494904337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6561509690eeaaa43821116109d49cff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

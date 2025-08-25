@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 3999819462550874660}
   - component: {fileID: 6508540260377185958}
   - component: {fileID: 7640088490181583553}
+  - component: {fileID: 990740333316031047}
   m_Layer: 0
   m_Name: Dungeon Enemy Speedy 1
   m_TagString: Enemy
@@ -283,14 +284,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5560274130437249246}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -13.046359, y: 5.7276497, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8224125855679178923}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &2856560698295693712
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -420,7 +421,7 @@ MonoBehaviour:
   maxHealth: 1000
   currentHealth: 0
   stamina: 10
-  defense: 50
+  defense: 30
   moveSpeed: 3
   contactDamage: 15
   healthBarCanvas: {fileID: 8737916126316246465}
@@ -491,3 +492,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &990740333316031047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5560274130437249246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1603c0d455a7c644f9b2d06e30dda989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInverted: 1

@@ -12,17 +12,24 @@ public class HealthStaminaUI : MonoBehaviour
         if (player == null) return;
 
         healthSlider.minValue = 0;
-        healthSlider.maxValue = 1000;
+        healthSlider.maxValue = 1;
 
         staminaSlider.minValue = 0;
         staminaSlider.maxValue = 100;
     }
 
     private void Update()
-    {
-        if (player == null) return;
+{
+    if (player == null) return;
 
-        healthSlider.value = player.GetHealth();
-        staminaSlider.value = player.GetStamina();
-    }
+    float currentHp = player.health;
+    float maxHp = player.maxHealth;
+
+    float hpPercent = (maxHp > 0) ? currentHp / maxHp : 0f;
+
+    healthSlider.value = hpPercent;
+
+    staminaSlider.value = player.GetStamina();
+}
+
 }

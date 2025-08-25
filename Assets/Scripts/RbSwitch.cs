@@ -1,22 +1,25 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class RbSwitch : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private Collider2D cl;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponentInParent<Rigidbody2D>();
+        cl = GetComponentInParent<Collider2D>();
     }
 
     public void DisableRb()
     {
         rb.simulated = false;
+        cl.enabled = false;
     }
 
     public void EnableRb()
     {
         rb.simulated = true;
+        cl.enabled = true;
     }
 }

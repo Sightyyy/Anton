@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 3999819462550874660}
   - component: {fileID: -4171952448189506930}
   - component: {fileID: 4035484115013265439}
+  - component: {fileID: -9185005096913517247}
   m_Layer: 0
   m_Name: Plains Enemy Boss
   m_TagString: Enemy
@@ -239,10 +240,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4819242dcb8e441a9d0060ac98060a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1500
-  currentHealth: 0
+  maxHealth: 15000
+  currentHealth: 15000
   stamina: 100
-  defense: 100
+  defense: 0
   moveSpeed: 5
   contactDamage: 30
   healthBarCanvas: {fileID: 579186536218300773}
@@ -291,7 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94dc895383a9ba643ae73c99ddc1d32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debuffsToApply: 4
+  debuffsToApply: 12
 --- !u!95 &4035484115013265439
 Animator:
   serializedVersion: 5
@@ -313,6 +314,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-9185005096913517247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5560274130437249246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88057234f1d99f0479fe0e95f569d5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillPrefabs:
+  - {fileID: 5560274130437249246, guid: 2110e0ae5b96bdc4ba6c9ec3a40b7ae2, type: 3}
+  - {fileID: 5560274130437249246, guid: 2110e0ae5b96bdc4ba6c9ec3a40b7ae2, type: 3}
+  - {fileID: 5560274130437249246, guid: f1cc3bfc07ec3a54abd6a7c37a65579e, type: 3}
+  - {fileID: 5560274130437249246, guid: f1cc3bfc07ec3a54abd6a7c37a65579e, type: 3}
+  - {fileID: 5560274130437249246, guid: f1cc3bfc07ec3a54abd6a7c37a65579e, type: 3}
+  skillCooldown: 20
+  spawnCount: 4
+  spawnRadius: 3
 --- !u!1 &8123646587490273899
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class DemonSkill : MonoBehaviour
 
     [Header("Prefab Settings")]
     public GameObject[] randomPrefabs;      // Untuk spawn acak
-    public GameObject playerTargetPrefab;   // Prefab yang spawn di lokasi player
+    private Transform playerTargetPrefab;   // Prefab yang spawn di lokasi player
 
     private Rigidbody2D rb;
     private EnemyBehavior enemyBehavior;
@@ -21,6 +21,10 @@ public class DemonSkill : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         enemyBehavior = GetComponent<EnemyBehavior>();
+        playerTargetPrefab = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
+        if (playerTargetPrefab == null)
+            Debug.LogWarning("Player Target Prefab belum di-assign di Inspector!");
     }
 
     private void Start()
@@ -45,37 +49,42 @@ public class DemonSkill : MonoBehaviour
     {
         isSkillOnCooldown = true;
 
-        // Step 0: Freeze 1 detik
-        rb.simulated = false;
-        yield return new WaitForSeconds(1f);
-        rb.simulated = true;
+        int chosenSkill = Random.Range(0, 3);
 
-        int healAmount = Mathf.RoundToInt(enemyBehavior.maxHealth * 0.03f);
-        enemyBehavior.currentHealth = Mathf.Min(enemyBehavior.currentHealth + healAmount, enemyBehavior.maxHealth);
-
-
-        // Step 2: Spawn 5–7 prefab random di sekitar Demon
-        int spawnCount = Random.Range(5, 8);
-        for (int i = 0; i < spawnCount; i++)
+        if (chosenSkill == 0)
         {
-            if (randomPrefabs.Length > 0)
+            rb.simulated = false;
+            yield return new WaitForSeconds(1f);
+            rb.simulated = true;
+
+            int healAmount = Mathf.RoundToInt(enemyBehavior.maxHealth * 0.03f);
+            enemyBehavior.currentHealth = Mathf.Min(enemyBehavior.currentHealth + healAmount, enemyBehavior.maxHealth);
+        }
+        else if (chosenSkill == 1)
+        {
+            int spawnCount = Random.Range(5, 8);
+            for (int i = 0; i < spawnCount; i++)
             {
-                GameObject prefab = randomPrefabs[Random.Range(0, randomPrefabs.Length)];
-                Vector2 spawnPos = (Vector2)transform.position + Random.insideUnitCircle * 2f;
-                Instantiate(prefab, spawnPos, Quaternion.identity);
+                if (randomPrefabs.Length > 0)
+                {
+                    GameObject prefab = randomPrefabs[Random.Range(0, randomPrefabs.Length)];
+                    Vector2 spawnPos = (Vector2)transform.position + Random.insideUnitCircle * 2f;
+                    Instantiate(prefab, spawnPos, Quaternion.identity);
+                }
             }
         }
-
-        // Step 3: Spawn prefab di lokasi player terus menerus selama 8 detik
-        float timer = 0f;
-        while (timer < 8f)
+        else if (chosenSkill == 2)
         {
-            if (playerTargetPrefab != null && enemyBehavior.player != null)
+            float timer = 0f;
+            while (timer < 8f)
             {
-                Instantiate(playerTargetPrefab, enemyBehavior.player.position, Quaternion.identity);
+                if (playerTargetPrefab != null && enemyBehavior.player != null)
+                {
+                    Instantiate(playerTargetPrefab, enemyBehavior.player.position, Quaternion.identity);
+                }
+                yield return new WaitForSeconds(0.5f);
+                timer += 0.5f;
             }
-            yield return new WaitForSeconds(0.5f); // jarak antar spawn
-            timer += 0.5f;
         }
 
         isSkillOnCooldown = false;

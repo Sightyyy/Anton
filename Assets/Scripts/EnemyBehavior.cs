@@ -28,11 +28,16 @@ public class EnemyBehavior : MonoBehaviour
     private float stoppingDistance = 0.5f;
     private float attackCooldown = 1f;
     private float lastAttackTime;
+    private InvertedIdentification invertedId;
+    private SpriteRenderer spriteRenderer;
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        invertedId = GetComponent<InvertedIdentification>();
         currentHealth = maxHealth;
         InitializeHealthBar();
         FindPlayer();
@@ -199,10 +204,19 @@ public class EnemyBehavior : MonoBehaviour
 
     private void UpdateFacingDirection(Vector2 direction)
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
+        if (spriteRenderer == null) return;
+
+        bool facingRight = direction.x > 0;
+
+        if (invertedId != null && invertedId.isInverted)
         {
-            spriteRenderer.flipX = (direction.x > 0);
+            // Kalau asset defaultnya inverted → dibalik logikanya
+            spriteRenderer.flipX = !facingRight;
+        }
+        else
+        {
+            // Normal
+            spriteRenderer.flipX = facingRight;
         }
     }
 

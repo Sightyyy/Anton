@@ -4,22 +4,54 @@ public class DamageTaken : MonoBehaviour
 {
     [Tooltip("Script PlayerBehavior harus terpasang pada objek ini.")]
     private PlayerBehavior playerBehavior;
+    private Animator animator;
+
+    private float invulnTime = 0.2f; // waktu kebal setelah kena hit
+    private float lastDamageTime;
 
     private void Awake()
     {
         playerBehavior = GetComponent<PlayerBehavior>();
+        animator = GetComponentInChildren<Animator>();
+
         if (playerBehavior == null)
         {
             Debug.LogError("PlayerBehavior not found on this object!");
+        }
+
+        if (animator == null)
+        {
+            Debug.LogError("Animator not found in children!");
         }
     }
 
     public void ApplyDamage(int amount)
     {
-        if (playerBehavior != null)
+        if (playerBehavior == null) return;
+
+        if (Time.time - lastDamageTime < invulnTime)
         {
-            playerBehavior.SetHealth(playerBehavior.health - amount);
-            Debug.Log($"Player took {amount} damage. Current HP: {playerBehavior.health}");
+            Debug.Log("Damage diabaikan (invulnerable cooldown).");
+            return;
         }
+
+        if (animator != null)
+        {
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            if (stateInfo.IsName("Player Skill") || stateInfo.IsName("Player Ultimate"))
+            {
+                Debug.Log("Damage diabaikan (sedang skill/ultimate).");
+                return;
+            }
+        }
+
+        if (playerBehavior.isInvulnerable)
+        {
+            amount = 0;
+        }
+
+        playerBehavior.SetHealth(playerBehavior.health - amount);
+        lastDamageTime = Time.time;
+        Debug.Log($"Player took {amount} damage. Current HP: {playerBehavior.health}");
     }
 }

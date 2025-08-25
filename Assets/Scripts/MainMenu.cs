@@ -31,38 +31,38 @@ public class MainMenu : MonoBehaviour
                 Debug.LogError("Animator component not found on Main Menu object!");
         }
 
-        InitializeLevelButtons();
+        // InitializeLevelButtons();
     }
 
     private void Start()
     {
-        audioCollection?.PlayBGM(audioCollection.mainMenu);
-        InitializeLevelButtons();
+        audioCollection.PlayBGM(audioCollection.mainMenu);
+        // InitializeLevelButtons();
     }
 
-    private void InitializeLevelButtons()
-    {
-        if (levelButtons.Count != levelSceneNames.Count || lockedImages.Count != levelSceneNames.Count)
-        {
-            Debug.LogError("Level buttons, locked images, and scene names counts don't match!");
-            return;
-        }
+    // private void InitializeLevelButtons()
+    // {
+    //     if (levelButtons.Count != levelSceneNames.Count || lockedImages.Count != levelSceneNames.Count)
+    //     {
+    //         Debug.LogError("Level buttons, locked images, and scene names counts don't match!");
+    //         return;
+    //     }
 
-        int levelsCompleted = DataManager.Instance.LevelsCompleted;
+    //     int levelsCompleted = DataManager.Instance.LevelsCompleted;
 
-        for (int i = 0; i < levelButtons.Count; i++)
-        {
-            bool levelUnlocked = (i <= levelsCompleted);
+    //     for (int i = 0; i < levelButtons.Count; i++)
+    //     {
+    //         bool levelUnlocked = (i <= levelsCompleted);
 
-            levelButtons[i].interactable = levelUnlocked;
+    //         levelButtons[i].interactable = levelUnlocked;
 
-            lockedImages[i].SetActive(!levelUnlocked);
+    //         lockedImages[i].SetActive(!levelUnlocked);
 
-            string sceneName = levelSceneNames[i];
-            levelButtons[i].onClick.RemoveAllListeners();
-            levelButtons[i].onClick.AddListener(() => PlayGame(sceneName));
-        }
-    }
+    //         string sceneName = levelSceneNames[i];
+    //         levelButtons[i].onClick.RemoveAllListeners();
+    //         levelButtons[i].onClick.AddListener(() => PlayGame(sceneName));
+    //     }
+    // }
 
     public void PlayGame(string sceneName)
     {

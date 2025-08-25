@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 3999819462550874660}
   - component: {fileID: 430616390141768273}
   - component: {fileID: 748991253259548774}
+  - component: {fileID: -1218781456122753551}
   m_Layer: 0
   m_Name: Dungeon Enemy
   m_TagString: Enemy
@@ -180,14 +181,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5560274130437249246}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -13.046359, y: 5.7276497, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6379368947111629667}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &2856560698295693712
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -353,6 +354,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   smoothSpeed: 5
+  player: {fileID: 0}
 --- !u!114 &430616390141768273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94dc895383a9ba643ae73c99ddc1d32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debuffsToApply: 4
+  debuffsToApply: 1
 --- !u!95 &748991253259548774
 Animator:
   serializedVersion: 5
@@ -387,6 +389,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-1218781456122753551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5560274130437249246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1603c0d455a7c644f9b2d06e30dda989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInverted: 1
 --- !u!1 &7454436668494904337
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,7 +414,6 @@ GameObject:
   - component: {fileID: 8351352050001392744}
   - component: {fileID: 3932251581608689728}
   - component: {fileID: 2146862869304014018}
-  - component: {fileID: 9121706460216926635}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -491,15 +505,3 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &9121706460216926635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7454436668494904337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6561509690eeaaa43821116109d49cff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

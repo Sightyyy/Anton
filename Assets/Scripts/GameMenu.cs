@@ -13,27 +13,55 @@ public class GameMenu : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject pausePanel;
     private PlayerBehavior playerBehavior;
+    private Animator playerAnimator;
+    private bool gameOverTriggered = false;
+    public string scene;
+    public string world;
+
+    // 🔹 Reference ke EnemySpawner
+    private EnemySpawner enemySpawn;
 
     private void Awake()
     {
         audioCollection = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioCollection>();
         playerBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
-    }
+        playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Animator>();
 
+        // 🔹 Karena GameMenu & EnemySpawner ada di object yang sama
+        enemySpawn = GetComponent<EnemySpawner>();
+        if (enemySpawn == null)
+        {
+            Debug.LogError("EnemySpawner tidak ditemukan di GameMenu object!");
+        }
+    }
 
     private void Start()
     {
         transitionImage.gameObject.SetActive(true);
         StartCoroutine(TransitionOpening());
+        if (world == "Plains")
+        {
+            audioCollection.PlayBGM(audioCollection.plains);
+        }
+        if (world == "Cave")
+        {
+            audioCollection.PlayBGM(audioCollection.cave);
+        }
+        if (world == "Dungeon")
+        {
+            audioCollection.PlayBGM(audioCollection.dungeon);
+        }
+        
     }
 
     private void Update()
     {
         OnPlayerDead();
+        CheckWaveComplete();
 
-        if (playerBehavior != null) return;
+        if (playerBehavior == null) return; // 🔹 diperbaiki (supaya nggak null ref)
 
-        if (Input.GetKeyDown(KeyCode.Escape) && playerBehavior.isDead!)
+        if (Input.GetKeyDown(KeyCode.Escape) && !playerBehavior.isDead)
         {
             if (!paused)
             {
@@ -50,13 +78,42 @@ public class GameMenu : MonoBehaviour
 
     private void OnPlayerDead()
     {
+        if (playerBehavior == null || gameOverTriggered) return;
+
         if (gameOverPanel != null && playerBehavior.isDead)
         {
-            StartCoroutine(NormalTransition());
-            gameOverPanel.SetActive(true);
-            audioCollection.PlayBGM(audioCollection.gameOver);
-            Time.timeScale = 0f;
+            AnimatorStateInfo stateInfo = playerAnimator.GetCurrentAnimatorStateInfo(0);
+
+            if (stateInfo.normalizedTime >= 1.0f)
+            {
+                gameOverTriggered = true;
+                StartCoroutine(GameOverSequence());
+            }
         }
+    }
+
+    private IEnumerator GameOverSequence()
+    {
+        yield return StartCoroutine(NormalTransition());
+        
+        audioCollection.PlayBGM(audioCollection.gameOver);
+        Time.timeScale = 0f;
+    }
+
+    private void CheckWaveComplete()
+    {
+        if (enemySpawn == null) return;
+
+        if (enemySpawn.currentWave >= enemySpawn.maxWave && 
+            (enemySpawn.enemiesPerWave - enemySpawn.enemiesKilledThisWave) <= 0)
+        {
+            GoToCutscene(scene);
+        }
+    }
+
+    public void GoToCutscene(string scene)
+    {
+        StartCoroutine(TransitionToScene(scene));
     }
 
     public void ReturnToMainMenu(string sceneName)
@@ -95,6 +152,7 @@ public class GameMenu : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         yield return StartCoroutine(FadeToBlack());
+        gameOverPanel.SetActive(true);
         yield return StartCoroutine(FadeFromBlack());
     }
 

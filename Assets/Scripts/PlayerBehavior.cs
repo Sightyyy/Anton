@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerBehavior : MonoBehaviour
@@ -24,6 +25,7 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField] private Image skillCooldownImage;
     [SerializeField] private Image ultimateCooldownImage;
     [SerializeField] private Image healingCooldownImage;
+    [SerializeField] private TMP_Text debuffText;
 
     public bool isWeakened = false;
     public bool isBurning = false;
@@ -32,7 +34,8 @@ public class PlayerBehavior : MonoBehaviour
     public bool isKnockbacked = false;
     public bool isDead = false;
     private bool isDashing = false;
-    private bool isDoingAction = false;
+    public bool isInvulnerable = false;
+    public bool isDoingAction = false;
     private bool isHardLocked = false;
     public bool IsHardLocked() => isHardLocked;
 
@@ -51,7 +54,7 @@ public class PlayerBehavior : MonoBehaviour
     private float healingCooldownTimer = 0f;
 
     private Animator anim;
-
+    AudioCollection audioCollection;
     private void Awake()
     {
         // component refs
@@ -71,7 +74,7 @@ public class PlayerBehavior : MonoBehaviour
         }
 
         originalSpeed = moveSpeed;
-
+        audioCollection = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioCollection>();
         if (maxHealth <= 0) maxHealth = 100;
         health = Mathf.Clamp(health > 0 ? health : maxHealth, 0, maxHealth);
     }
@@ -86,6 +89,7 @@ public class PlayerBehavior : MonoBehaviour
         HandleHealingCooldown();
         HandleKnockbackCooldown();
         UpdateAnimatorState();
+        UpdateDebuffUI();
     }
 
     private void FixedUpdate()
@@ -119,7 +123,7 @@ public class PlayerBehavior : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton0))
             HandleDash();
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton4))
             StartCoroutine(HandleHealing());
     }
 
@@ -143,6 +147,7 @@ public class PlayerBehavior : MonoBehaviour
 
         isDoingAction = true;
         isHardLocked = true;
+        isInvulnerable = true;
         stamina -= 10;
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
@@ -155,6 +160,7 @@ public class PlayerBehavior : MonoBehaviour
 
         isDoingAction = false;
         isHardLocked = false;
+        isInvulnerable = false;
     }
 
     private void HandleSkillCooldown()
@@ -183,6 +189,7 @@ public class PlayerBehavior : MonoBehaviour
         if (stamina < 30 || isDoingAction || anim == null || ultimateCooldownTimer > 0f) yield break;
 
         isDoingAction = true;
+        isInvulnerable = true;
         isHardLocked = true;
         stamina -= 30;
         staminaRegenDelay = 1f;
@@ -195,6 +202,7 @@ public class PlayerBehavior : MonoBehaviour
         yield return new WaitForSeconds(2.35f);
 
         isDoingAction = false;
+        isInvulnerable = false;
         isHardLocked = false;
     }
 
@@ -223,13 +231,36 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (isDead || isDoingAction || healingCooldownTimer > 0f) yield break;
 
+        audioCollection.PlaySFX(audioCollection.heal);
         int healAmount = Mathf.CeilToInt(maxHealth * healingPercent);
         Heal(healAmount);
+
+        // === Hapus semua debuff kecuali Burning ===
+        isWeakened = false;
+        isPoisoned = false;
+        isSlowed = false;
+        isKnockbacked = false;
+        weakenTimer = 0f;
+        poisonTimer = 0f;
+        slowTimer = 0f;
+        knockbackCooldown = 0f;
+        // Burning dibiarkan tetap aktif
+
+        // === Tambahkan invulnerability 3 detik ===
+        StartCoroutine(TemporaryInvulnerability(3f));
 
         healingCooldownTimer = 7f;
         if (healingCooldownImage) healingCooldownImage.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(0f);
+        yield return null;
+    }
+    private IEnumerator TemporaryInvulnerability(float duration)
+    {
+        isInvulnerable = true;
+        yield return new WaitForSeconds(duration);
+        isInvulnerable = false;
+        if (!isBurning && spriteRenderer != null)
+            spriteRenderer.color = Color.white;
     }
 
     private void HandleHealingCooldown()
@@ -297,7 +328,7 @@ public class PlayerBehavior : MonoBehaviour
 
         staminaRegenTimer += Time.deltaTime;
 
-        if (staminaRegenTimer >= 1f)
+        if (staminaRegenTimer >= 1.55f)
         {
             stamina += 5;
             stamina = Mathf.Clamp(stamina, 0, 100);
@@ -502,7 +533,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         isKnockbacked = true;
         isHardLocked = true;
-        knockbackCooldown = 1.5f;
+        knockbackCooldown = 2.5f;
 
         Vector2 knockbackTarget = rb.position + direction * 5f;
         rb.MovePosition(knockbackTarget);
@@ -517,5 +548,19 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (knockbackCooldown > 0f)
             knockbackCooldown -= Time.deltaTime;
+    }
+     private void UpdateDebuffUI()
+    {
+        if (debuffText == null) return;
+
+        string result = "";
+
+        if (isWeakened) result += "<color=#AAAAAA>Weakened</color>\n";
+        if (isBurning) result += "<color=#FF4444>Burning</color>\n";
+        if (isPoisoned) result += "<color=#44FF44>Poisoned</color>\n";
+        if (isSlowed) result += "<color=#4488FF>Slowed</color>\n";
+        if (isKnockbacked) result += "<color=#FFD700>Knockbacked</color>\n";
+
+        debuffText.text = result.TrimEnd('\n');
     }
 }

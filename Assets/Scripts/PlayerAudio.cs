@@ -21,7 +21,22 @@ public class PlayerAudio : MonoBehaviour
     }
     public void UltAreaSFX()
     {
-        audioCollection.PlaySFX(audioCollection.ultSlash);
+        audioCollection.PlaySFX(audioCollection.ultFall);
     }
-    
+    public void HealSFX()
+    {
+        audioCollection.PlaySFX(audioCollection.heal);
+    }
+    public void DeadSFX()
+    {
+        audioCollection.PlaySFX(audioCollection.death);
+    }
+    public void UltExplodeSFX()
+    {
+        audioCollection.PlaySFX(audioCollection.ultArea);
+    }
+    public void BasicAttackSFX()
+    {
+        audioCollection.PlaySFX(audioCollection.attack);
+    }
 }

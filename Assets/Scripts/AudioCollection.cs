@@ -16,16 +16,19 @@ public class AudioCollection : MonoBehaviour
 
     [Header("========== Background Music ==========")]
     public AudioClip mainMenu;
-    public AudioClip game;
+    public AudioClip plains;
+    public AudioClip cave;
+    public AudioClip dungeon;
+    public AudioClip cutscene;
     public AudioClip gameOver;
 
     [Header("========== SFX ==========")]
     public AudioClip buttonClick;
     public AudioClip death;
-    public AudioClip death2;
+    public AudioClip attack;
     public AudioClip walking;
-    public AudioClip sensor;
-    public AudioClip jump;
+    public AudioClip ultFall;
+    public AudioClip heal;
     public AudioClip skillSlash;
     public AudioClip ultSlash;
     public AudioClip ultArea;
