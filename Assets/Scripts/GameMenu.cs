@@ -12,9 +12,11 @@ public class GameMenu : MonoBehaviour
     AudioCollection audioCollection;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject tutorialPanel;
     private PlayerBehavior playerBehavior;
     private Animator playerAnimator;
     private bool gameOverTriggered = false;
+    private bool tutorialShown = false;
     public string scene;
     public string world;
 
@@ -38,20 +40,27 @@ public class GameMenu : MonoBehaviour
     private void Start()
     {
         transitionImage.gameObject.SetActive(true);
-        StartCoroutine(TransitionOpening());
+        if (world == "Plains" && tutorialPanel != null && PlayerPrefs.GetInt("TutorialShown", 0) == 0)
+        {
+            ShowTutorial();
+        }
+        else
+        {
+            StartCoroutine(TransitionOpening());
+        }
+
         if (world == "Plains")
         {
             audioCollection.PlayBGM(audioCollection.plains);
         }
-        if (world == "Cave")
+        else if (world == "Cave")
         {
             audioCollection.PlayBGM(audioCollection.cave);
         }
-        if (world == "Dungeon")
+        else if (world == "Dungeon")
         {
             audioCollection.PlayBGM(audioCollection.dungeon);
         }
-        
     }
 
     private void Update()
@@ -73,6 +82,36 @@ public class GameMenu : MonoBehaviour
                 audioCollection.PlaySFX(audioCollection.buttonClick);
                 Resume();
             }
+        }
+    }
+
+    private void ShowTutorial()
+    {
+        if (tutorialPanel != null && world == "Plains")
+        {
+            tutorialPanel.SetActive(true);
+            Time.timeScale = 0f;
+            tutorialShown = true;
+
+            Image panelImage = tutorialPanel.GetComponent<Image>();
+            if (panelImage != null)
+            {
+                panelImage.raycastTarget = true;
+                tutorialPanel.AddComponent<Button>().onClick.AddListener(HideTutorial);
+            }
+        }
+    }
+
+    private void HideTutorial()
+    {
+        if (tutorialPanel != null)
+        {
+            transitionImage.gameObject.SetActive(false);
+            tutorialPanel.SetActive(false);
+            Time.timeScale = 1f;
+
+            PlayerPrefs.SetInt("TutorialShown", 0);
+            PlayerPrefs.Save();
         }
     }
 
@@ -107,6 +146,8 @@ public class GameMenu : MonoBehaviour
         if (enemySpawn.currentWave >= enemySpawn.maxWave && 
             (enemySpawn.enemiesPerWave - enemySpawn.enemiesKilledThisWave) <= 0)
         {
+            enemySpawn = null; // Supaya nggak terus ngecek
+            DataManager.Instance.CompleteLevel();
             GoToCutscene(scene);
         }
     }
