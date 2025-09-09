@@ -161,6 +161,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public void Move(Vector2 direction)
     {
+        Debug.Log($"{gameObject.name} moving dir={direction} speed={moveSpeed}");
         rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
     }
 
@@ -210,12 +211,10 @@ public class EnemyBehavior : MonoBehaviour
 
         if (invertedId != null && invertedId.isInverted)
         {
-            // Kalau asset defaultnya inverted → dibalik logikanya
             spriteRenderer.flipX = !facingRight;
         }
         else
         {
-            // Normal
             spriteRenderer.flipX = facingRight;
         }
     }

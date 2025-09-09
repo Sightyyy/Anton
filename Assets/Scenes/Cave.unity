@@ -610,6 +610,7 @@ MonoBehaviour:
   transitionTime: 1
   gameOverPanel: {fileID: 582087551}
   pausePanel: {fileID: 748412577}
+  tutorialPanel: {fileID: 0}
   scene: PostCave
   world: Cave
 --- !u!1 &96214760
@@ -1043,6 +1044,63 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &310862072
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3739511928346457772, guid: 23b6dfeab2cb6444ba7182afdcbc66f0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.6491785
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739511928346457772, guid: 23b6dfeab2cb6444ba7182afdcbc66f0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5259929
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739511928346457772, guid: 23b6dfeab2cb6444ba7182afdcbc66f0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739511928346457772, guid: 23b6dfeab2cb6444ba7182afdcbc66f0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739511928346457772, guid: 23b6dfeab2cb6444ba7182afdcbc66f0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739511928346457772, guid: 23b6dfeab2cb6444ba7182afdcbc66f0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739511928346457772, guid: 23b6dfeab2cb6444ba7182afdcbc66f0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739511928346457772, guid: 23b6dfeab2cb6444ba7182afdcbc66f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739511928346457772, guid: 23b6dfeab2cb6444ba7182afdcbc66f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739511928346457772, guid: 23b6dfeab2cb6444ba7182afdcbc66f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560274130437249246, guid: 23b6dfeab2cb6444ba7182afdcbc66f0, type: 3}
+      propertyPath: m_Name
+      value: Cave Enemy Boss
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 23b6dfeab2cb6444ba7182afdcbc66f0, type: 3}
 --- !u!1 &346673144
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,7 +1472,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7275921433159980922, guid: 274b2ee520ac2c44f8f5caa0a30420e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
@@ -3659,7 +3717,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: -6783679746258409040, guid: 7306ef4d034d0be45a13a76425c92ee5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
@@ -4602,7 +4660,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 266454707719724249, guid: d3fca3f73c437d9478890eaa6fbbba1b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
@@ -9617,7 +9675,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 798467858, guid: eeb21e181b406e6409cc2bae59e6a7fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -13403,7 +13461,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
@@ -15387,7 +15445,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -15807,3 +15865,4 @@ SceneRoots:
   - {fileID: 1242647724}
   - {fileID: 72544930}
   - {fileID: 1052533379}
+  - {fileID: 310862072}
