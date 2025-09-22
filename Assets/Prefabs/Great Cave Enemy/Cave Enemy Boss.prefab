@@ -174,7 +174,6 @@ GameObject:
   - component: {fileID: 3999819462550874660}
   - component: {fileID: -4574855217962445827}
   - component: {fileID: 7345486742010106170}
-  - component: {fileID: 2338196280995791533}
   - component: {fileID: -7560689247787686967}
   m_Layer: 0
   m_Name: Cave Enemy Boss
@@ -193,7 +192,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.046359, y: 5.7276497, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1569822780104984692}
@@ -312,7 +311,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!114 &3999819462550874660
 MonoBehaviour:
@@ -392,7 +391,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 5ea2b8861144396489b1d3598e21ea20, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -400,18 +399,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2338196280995791533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5560274130437249246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80be77b0e29db2b4fb84dcf8cb69f677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-7560689247787686967
 MonoBehaviour:
   m_ObjectHideFlags: 0

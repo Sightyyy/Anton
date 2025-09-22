@@ -8,8 +8,8 @@ using System.Collections;
 public class MinotaurSkill : MonoBehaviour
 {
     [Header("Skill Settings")]
-    public float skillCooldown = 10f;      // Cooldown antar skill
-    [Range(0f, 1f)] public float skillChance = 0.3f; // 30% peluang skill keluar setiap cooldown
+    public float skillCooldown = 10f;
+    [Range(0f, 1f)] public float skillChance = 0.3f;
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
@@ -47,16 +47,11 @@ public class MinotaurSkill : MonoBehaviour
     private IEnumerator UseSkill()
     {
         isSkillOnCooldown = true;
-
-        // Pilih skill random (3 jenis step)
-        int chosenSkill = Random.Range(0, 3);
-
-        // Aktifkan animasi
-        
+        int chosenSkill = Random.Range(0, 1);
 
         if (chosenSkill == 0)
         {
-            // === Step 1: Buff Mode (damage x2, defense -75%) ===
+            Debug.Log("Use skill 1");
             int originalDamage = enemyBehavior.contactDamage;
             int originalDefense = enemyBehavior.defense;
 
@@ -65,12 +60,11 @@ public class MinotaurSkill : MonoBehaviour
             enemyBehavior.contactDamage = Mathf.RoundToInt(originalDamage * 2f);
             enemyBehavior.defense = Mathf.RoundToInt(originalDefense * 0.25f);
 
-            yield return new WaitForSeconds(1f); // freeze singkat
+            yield return new WaitForSeconds(1f);
 
             rb.simulated = true;
             spriteRenderer.color = Color.white;
 
-            // Tahan efek 15 detik
             yield return new WaitForSeconds(15f);
 
             enemyBehavior.contactDamage = originalDamage;
@@ -78,6 +72,7 @@ public class MinotaurSkill : MonoBehaviour
         }
         else if (chosenSkill == 1)
         {
+            Debug.Log("Use Skill 2");
             animator.SetTrigger("Skill");
         }
 

@@ -44,13 +44,17 @@ public class DamageTaken : MonoBehaviour
                 return;
             }
         }
-
+        int finalDamage = amount;
         if (playerBehavior.isInvulnerable)
         {
-            amount = 0;
+            finalDamage = 0;
+        }
+        else if (playerBehavior.isWeakened)
+        {
+            finalDamage = Mathf.RoundToInt(amount * 1.25f);
         }
 
-        playerBehavior.SetHealth(playerBehavior.health - amount);
+        playerBehavior.SetHealth(playerBehavior.health - finalDamage);
         lastDamageTime = Time.time;
         Debug.Log($"Player took {amount} damage. Current HP: {playerBehavior.health}");
     }

@@ -2,8 +2,21 @@ using UnityEngine;
 
 public class DamageDealt : MonoBehaviour
 {
+    [Header("Damage Settings")]
     public int damageAmount = 10;
     public string targetTag = "Enemy";
+
+    private PlayerBehavior playerBehavior;
+
+    void Awake()
+    {
+        // Cari PlayerBehavior dari parent (misalnya kalau script ini ada di weapon/collider child)
+        playerBehavior = GetComponentInParent<PlayerBehavior>();
+        if (playerBehavior == null)
+        {
+            Debug.LogWarning($"{gameObject.name} tidak menemukan PlayerBehavior di parent!");
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,23 +28,20 @@ public class DamageDealt : MonoBehaviour
             EnemyBehavior enemy = collision.GetComponent<EnemyBehavior>();
             if (enemy != null)
             {
-                enemy.TakeDamage(damageAmount);
+                int finalDamage = CalculateDamage(damageAmount);
+                enemy.TakeDamage(finalDamage);
             }
         }
-        else if (targetTag == "Player")
+    }
+
+    private int CalculateDamage(int baseDamage)
+    {
+        int result = baseDamage;
+
+        if (playerBehavior != null && playerBehavior.isWeakened)
         {
-            PlayerBehavior player = collision.GetComponent<PlayerBehavior>();
-            if (player != null)
-            {
-                int finalDamage = damageAmount;
-
-                if (player.isWeakened)
-                {
-                    finalDamage = Mathf.FloorToInt(damageAmount * 0.9f);
-                }
-
-                player.SetHealth(player.GetHealth() - finalDamage);
-            }
+            result = Mathf.RoundToInt(baseDamage * 0.9f);
         }
+        return result;
     }
 }

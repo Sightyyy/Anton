@@ -14,7 +14,7 @@ public class PlayerBehavior : MonoBehaviour
     public int health;
     public int maxStamina;
     public int stamina;
-    public float healingPercent = 0.07f;
+    public float healingPercent = 0.15f;
 
     [Header("Visual Reference")]
     public GameObject visual;
@@ -151,7 +151,7 @@ public class PlayerBehavior : MonoBehaviour
         stamina -= 10;
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
-        skillCooldownTimer = 8f;
+        skillCooldownTimer = 5f;
         if (skillCooldownImage) skillCooldownImage.gameObject.SetActive(true);
 
         anim.SetTrigger("Skill");
@@ -171,7 +171,7 @@ public class PlayerBehavior : MonoBehaviour
 
             if (skillCooldownImage != null)
             {
-                skillCooldownImage.fillAmount = skillCooldownTimer / 8f;
+                skillCooldownImage.fillAmount = skillCooldownTimer / 5;
             }
         }
         else if (skillCooldownTimer <= 0f && skillCooldownImage != null)
@@ -194,7 +194,7 @@ public class PlayerBehavior : MonoBehaviour
         stamina -= 30;
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
-        ultimateCooldownTimer = 20f;
+        ultimateCooldownTimer = 12.5f;
         if (ultimateCooldownImage) ultimateCooldownImage.gameObject.SetActive(true);
 
         anim.SetTrigger("Ultimate");
@@ -214,7 +214,7 @@ public class PlayerBehavior : MonoBehaviour
 
             if (ultimateCooldownImage != null)
             {
-                ultimateCooldownImage.fillAmount = ultimateCooldownTimer / 20f;
+                ultimateCooldownImage.fillAmount = ultimateCooldownTimer / 12.5f;
             }
         }
         else if (ultimateCooldownTimer <= 0f && ultimateCooldownImage != null)
@@ -235,7 +235,6 @@ public class PlayerBehavior : MonoBehaviour
         int healAmount = Mathf.CeilToInt(maxHealth * healingPercent);
         Heal(healAmount);
 
-        // === Hapus semua debuff kecuali Burning ===
         isWeakened = false;
         isPoisoned = false;
         isSlowed = false;
@@ -244,12 +243,9 @@ public class PlayerBehavior : MonoBehaviour
         poisonTimer = 0f;
         slowTimer = 0f;
         knockbackCooldown = 0f;
-        // Burning dibiarkan tetap aktif
+        StartCoroutine(TemporaryInvulnerability(1.5f));
 
-        // === Tambahkan invulnerability 3 detik ===
-        StartCoroutine(TemporaryInvulnerability(3f));
-
-        healingCooldownTimer = 7f;
+        healingCooldownTimer = 5f;
         if (healingCooldownImage) healingCooldownImage.gameObject.SetActive(true);
 
         yield return null;
@@ -271,7 +267,7 @@ public class PlayerBehavior : MonoBehaviour
 
             if (healingCooldownImage != null)
             {
-                healingCooldownImage.fillAmount = healingCooldownTimer / 7;
+                healingCooldownImage.fillAmount = healingCooldownTimer / 5;
             }
         }
         else if (healingCooldownTimer <= 0f && healingCooldownImage != null)
@@ -393,12 +389,12 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (isWeakened)
         {
-            weakenTimer = 15f;
+            weakenTimer = 10f;
             return;
         }
 
         isWeakened = true;
-        weakenTimer = 15f;
+        weakenTimer = 10f;
         StartCoroutine(WeakenEffect());
     }
 
@@ -445,7 +441,7 @@ public class PlayerBehavior : MonoBehaviour
 
         while (burnTimer > 0f)
         {
-            int dmg = Mathf.CeilToInt(health * 0.03f);
+            int dmg = Mathf.CeilToInt(health * 0.01f);
             TakeDamage(dmg);
             burnTimer -= 1f;
             yield return new WaitForSeconds(1f);
@@ -459,12 +455,12 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (isPoisoned)
         {
-            poisonTimer = 15f;
+            poisonTimer = 8f;
             return;
         }
 
         isPoisoned = true;
-        poisonTimer = 15f;
+        poisonTimer = 8f;
         slowTimer = Mathf.Max(slowTimer, 8f);
         StartCoroutine(PoisonedEffect());
     }
@@ -477,7 +473,7 @@ public class PlayerBehavior : MonoBehaviour
 
         while (poisonTimer > 0f)
         {
-            if (health > Mathf.CeilToInt(maxHealth * 0.15f))
+            if (health > Mathf.CeilToInt(maxHealth * 0.35f))
             {
                 int dmg = Mathf.CeilToInt(health * 0.05f);
                 TakeDamage(dmg);

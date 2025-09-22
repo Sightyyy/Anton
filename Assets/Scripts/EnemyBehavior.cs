@@ -31,7 +31,6 @@ public class EnemyBehavior : MonoBehaviour
     private InvertedIdentification invertedId;
     private SpriteRenderer spriteRenderer;
 
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -104,11 +103,24 @@ public class EnemyBehavior : MonoBehaviour
         if (distanceToPlayer > stoppingDistance)
         {
             Move(direction);
+
+            // jalan → state 1
+            if (animator != null)
+            {
+                animator.SetInteger("State", 1);
+            }
+        }
+        else
+        {
+            // diam → state 0
+            if (animator != null)
+            {
+                animator.SetInteger("State", 0);
+            }
         }
 
         UpdateFacingDirection(direction);
     }
-
 
     private void SmoothHealthBar()
     {
@@ -161,7 +173,6 @@ public class EnemyBehavior : MonoBehaviour
 
     public void Move(Vector2 direction)
     {
-        Debug.Log($"{gameObject.name} moving dir={direction} speed={moveSpeed}");
         rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
     }
 
@@ -171,7 +182,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             if (animator != null)
             {
-                animator.Play("Attack");
+                animator.SetTrigger("Attack");
             }
 
             var playerDamage = collision.GetComponent<DamageTaken>();
@@ -190,7 +201,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             if (animator != null)
             {
-                animator.Play("Attack");
+                animator.SetTrigger("Attack");
             }
 
             var playerDamage = collision.GetComponent<DamageTaken>();
