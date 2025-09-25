@@ -13,11 +13,6 @@ public class DamageDealt : MonoBehaviour
     {
         playerBehavior = GetComponentInParent<PlayerBehavior>();
         enemyBehavior = GetComponentInParent<EnemyBehavior>();
-
-        if (playerBehavior == null && enemyBehavior == null)
-        {
-            Debug.LogWarning($"{gameObject.name} tidak menemukan PlayerBehavior atau EnemyBehavior di parent!");
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

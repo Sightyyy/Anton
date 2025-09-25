@@ -1,17 +1,17 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(EnemyBehavior))]
 public class DemonSkill : MonoBehaviour
 {
     [Header("Skill Settings")]
-    public float skillCooldown = 12f;       // Cooldown antar skill
-    [Range(0f, 1f)] public float skillChance = 0.35f; // 35% peluang skill keluar
+    public float skillCooldown = 12f;
 
     [Header("Prefab Settings")]
-    public GameObject[] randomPrefabs;      // Untuk spawn acak
-    private Transform playerTargetPrefab;   // Prefab yang spawn di lokasi player
+    public GameObject[] laserPrefabs; 
+    private Transform playerTargetPrefab;
 
     private Rigidbody2D rb;
     private EnemyBehavior enemyBehavior;
@@ -37,11 +37,7 @@ public class DemonSkill : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(skillCooldown);
-
-            if (Random.value <= skillChance && !isSkillOnCooldown)
-            {
-                StartCoroutine(UseSkill());
-            }
+            StartCoroutine(UseSkill());
         }
     }
 
@@ -49,10 +45,12 @@ public class DemonSkill : MonoBehaviour
     {
         isSkillOnCooldown = true;
 
-        int chosenSkill = Random.Range(0, 3);
+        int chosenSkill = Random.Range(0, 16);
+        Debug.Log("random number got = " + chosenSkill);
 
-        if (chosenSkill == 0)
+        if (chosenSkill >= 0 && chosenSkill <= 3)
         {
+            Debug.Log("use skill 1");
             rb.simulated = false;
             yield return new WaitForSeconds(1f);
             rb.simulated = true;
@@ -60,27 +58,42 @@ public class DemonSkill : MonoBehaviour
             int healAmount = Mathf.RoundToInt(enemyBehavior.maxHealth * 0.03f);
             enemyBehavior.currentHealth = Mathf.Min(enemyBehavior.currentHealth + healAmount, enemyBehavior.maxHealth);
         }
-        else if (chosenSkill == 1)
+        else if (chosenSkill >= 4 && chosenSkill <= 12)
         {
-            int spawnCount = Random.Range(5, 8);
+            Debug.Log("use skill 2");
+            rb.simulated = false;
+            int spawnCount = Random.Range(15, 16);
+            float radius = 12.5f;
+            float randomOffset = 3f;
+
             for (int i = 0; i < spawnCount; i++)
             {
-                if (randomPrefabs.Length > 0)
+                if (laserPrefabs.Length > 0)
                 {
-                    GameObject prefab = randomPrefabs[Random.Range(0, randomPrefabs.Length)];
-                    Vector2 spawnPos = (Vector2)transform.position + Random.insideUnitCircle * 2f;
+                    float angle = i * (2f * Mathf.PI / spawnCount);
+                    Vector2 basePos = (Vector2)transform.position + new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
+                    Vector2 spawnPos = basePos + Random.insideUnitCircle * randomOffset;
+                    GameObject prefab = laserPrefabs[Random.Range(0, laserPrefabs.Length)];
                     Instantiate(prefab, spawnPos, Quaternion.identity);
                 }
             }
+            yield return new WaitForSeconds(1f);
+            rb.simulated = true;
         }
-        else if (chosenSkill == 2)
+        else if (chosenSkill >= 13 && chosenSkill <= 15)
         {
+            Debug.Log("use skill 3");
+            rb.simulated = false;
+            yield return new WaitForSeconds(0.5f);
+            rb.simulated = true;
             float timer = 0f;
             while (timer < 8f)
             {
-                if (playerTargetPrefab != null && enemyBehavior.player != null)
+                if (laserPrefabs != null && playerTargetPrefab != null)
                 {
-                    Instantiate(playerTargetPrefab, enemyBehavior.player.position, Quaternion.identity);
+                    GameObject prefab = laserPrefabs[Random.Range(0, laserPrefabs.Length)];
+                    Vector2 spawnPos = playerTargetPrefab.position;
+                    Instantiate(prefab, spawnPos, Quaternion.identity);
                 }
                 yield return new WaitForSeconds(0.5f);
                 timer += 0.5f;

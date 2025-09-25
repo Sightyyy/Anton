@@ -198,9 +198,9 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.51122665, y: -0.39523435}
-  m_Size: {x: 1.8334274, y: 2.2458472}
-  m_Direction: 0
+  m_Offset: {x: 0.04855808, y: -0.36024788}
+  m_Size: {x: 3.3654258, y: 2.1758792}
+  m_Direction: 1
 --- !u!50 &8993547522112952782
 Rigidbody2D:
   serializedVersion: 4
@@ -326,9 +326,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62afe4433c7d6fc45989bbf0a4fd1390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillCooldown: 12
-  skillChance: 0.35
-  randomPrefabs:
+  skillCooldown: 10
+  laserPrefabs:
   - {fileID: 4969932007972589220, guid: 0b31a645ac6d2fc4ab8bc2a5777a5615, type: 3}
 --- !u!1 &8123646587490273899
 GameObject:
