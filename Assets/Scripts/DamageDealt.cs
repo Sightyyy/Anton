@@ -7,14 +7,16 @@ public class DamageDealt : MonoBehaviour
     public string targetTag = "Enemy";
 
     private PlayerBehavior playerBehavior;
+    private EnemyBehavior enemyBehavior;
 
     void Awake()
     {
-        // Cari PlayerBehavior dari parent (misalnya kalau script ini ada di weapon/collider child)
         playerBehavior = GetComponentInParent<PlayerBehavior>();
-        if (playerBehavior == null)
+        enemyBehavior = GetComponentInParent<EnemyBehavior>();
+
+        if (playerBehavior == null && enemyBehavior == null)
         {
-            Debug.LogWarning($"{gameObject.name} tidak menemukan PlayerBehavior di parent!");
+            Debug.LogWarning($"{gameObject.name} tidak menemukan PlayerBehavior atau EnemyBehavior di parent!");
         }
     }
 
@@ -28,20 +30,39 @@ public class DamageDealt : MonoBehaviour
             EnemyBehavior enemy = collision.GetComponent<EnemyBehavior>();
             if (enemy != null)
             {
-                int finalDamage = CalculateDamage(damageAmount);
+                int finalDamage = CalculateDamage(damageAmount, true);
                 enemy.TakeDamage(finalDamage);
             }
         }
+        else if (targetTag == "Player")
+        {
+            DamageTaken player = collision.GetComponent<DamageTaken>();
+            if (player != null)
+            {
+                int finalDamage = CalculateDamage(damageAmount, false);
+                player.ApplyDamage(finalDamage);
+            }
+        }
     }
-
-    private int CalculateDamage(int baseDamage)
+    private int CalculateDamage(int baseDamage, bool isAttackingEnemy)
     {
         int result = baseDamage;
 
-        if (playerBehavior != null && playerBehavior.isWeakened)
+        if (isAttackingEnemy)
         {
-            result = Mathf.RoundToInt(baseDamage * 0.9f);
+            if (playerBehavior != null && playerBehavior.isWeakened)
+            {
+                result = Mathf.RoundToInt(baseDamage * 0.9f);
+            }
         }
+        else
+        {
+            if (enemyBehavior != null && enemyBehavior.stamina < 10)
+            {
+                result = Mathf.RoundToInt(baseDamage * 0.8f);
+            }
+        }
+
         return result;
     }
 }

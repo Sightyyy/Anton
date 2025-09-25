@@ -66,7 +66,7 @@ public class InfiniteTiles : MonoBehaviour
             {
                 currentTilePos[x, y] = currentTilePos[x + 1, y];
             }
-            left.position += Vector3.right * tileWidth * 3;
+            left.position += Vector3.right * tileWidth * 2;
             currentTilePos[2, y] = left;
         }
     }
@@ -131,9 +131,4 @@ public class InfiniteTiles : MonoBehaviour
             currentTilePos[x, 2] = topRow[x];
         }
     }
-
-
-
-
-
 }

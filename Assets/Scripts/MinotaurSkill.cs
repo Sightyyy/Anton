@@ -1,29 +1,25 @@
 using UnityEngine;
 using System.Collections;
-
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(EnemyBehavior))]
-[RequireComponent(typeof(Animator))]
 public class MinotaurSkill : MonoBehaviour
 {
     [Header("Skill Settings")]
     public float skillCooldown = 10f;
-    [Range(0f, 1f)] public float skillChance = 0.3f;
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private EnemyBehavior enemyBehavior;
     private Animator animator;
+    private Collider2D col;
 
     private bool isSkillOnCooldown = false;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         enemyBehavior = GetComponent<EnemyBehavior>();
         animator = GetComponent<Animator>();
+        col = GetComponent<Collider2D>();
     }
 
     private void Start()
@@ -36,20 +32,17 @@ public class MinotaurSkill : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(skillCooldown);
-
-            if (Random.value <= skillChance && !isSkillOnCooldown)
-            {
-                StartCoroutine(UseSkill());
-            }
+            StartCoroutine(UseSkill());
         }
     }
 
     private IEnumerator UseSkill()
     {
         isSkillOnCooldown = true;
-        int chosenSkill = Random.Range(0, 1);
+        int chosenSkill = Random.Range(0, 11);
+        Debug.Log("random number got = " + chosenSkill);
 
-        if (chosenSkill == 0)
+        if (chosenSkill <= 5 && chosenSkill >= 0)
         {
             Debug.Log("Use skill 1");
             int originalDamage = enemyBehavior.contactDamage;
@@ -63,17 +56,22 @@ public class MinotaurSkill : MonoBehaviour
             yield return new WaitForSeconds(1f);
 
             rb.simulated = true;
+
+            yield return new WaitForSeconds(10f);
+
             spriteRenderer.color = Color.white;
-
-            yield return new WaitForSeconds(15f);
-
             enemyBehavior.contactDamage = originalDamage;
             enemyBehavior.defense = originalDefense;
         }
-        else if (chosenSkill == 1)
+        else if (chosenSkill >= 6 && chosenSkill <= 10)
         {
             Debug.Log("Use Skill 2");
+            col.enabled = false;
             animator.SetTrigger("Skill");
+            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Minotaur_Skill"));
+            float duration = animator.GetCurrentAnimatorStateInfo(0).length;
+            yield return new WaitForSeconds(duration);
+            col.enabled = true;
         }
 
         isSkillOnCooldown = false;

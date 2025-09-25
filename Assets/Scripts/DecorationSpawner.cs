@@ -7,12 +7,12 @@ public class DecorationSpawner : MonoBehaviour
     [SerializeField] private GameObject decorationPrefab;
     [SerializeField] private float immediateSpawnRadius = 5f;
     [SerializeField] private float spawnRadius = 15f;
-    [SerializeField] private float despawnRadius = 25f;
-    [SerializeField] private int maxActiveDecorations = 50;
-    [SerializeField] private float minDistanceBetween = 2f;
+    [SerializeField] private float despawnRadius = 20f;
+    [SerializeField] private int maxActiveDecorations = 20;
+    [SerializeField] private float minDistanceBetween = 3f;
 
     [Header("Density Settings")]
-    [SerializeField] private float checkInterval = 0.3f;
+    [SerializeField] private float checkInterval = 0f;
     [SerializeField] private int spawnAttemptsPerCheck = 5;
     [SerializeField] private int initialTreesToSpawn = 5;
 

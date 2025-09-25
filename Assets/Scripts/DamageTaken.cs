@@ -31,7 +31,7 @@ public class DamageTaken : MonoBehaviour
 
         if (Time.time - lastDamageTime < invulnTime)
         {
-            Debug.Log("Damage diabaikan (invulnerable cooldown).");
+            // Debug.Log("Damage diabaikan (invulnerable cooldown).");
             return;
         }
 
@@ -40,7 +40,7 @@ public class DamageTaken : MonoBehaviour
             AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             if (stateInfo.IsName("Player Skill") || stateInfo.IsName("Player Ultimate"))
             {
-                Debug.Log("Damage diabaikan (sedang skill/ultimate).");
+                // Debug.Log("Damage diabaikan (sedang skill/ultimate).");
                 return;
             }
         }
@@ -56,6 +56,6 @@ public class DamageTaken : MonoBehaviour
 
         playerBehavior.SetHealth(playerBehavior.health - finalDamage);
         lastDamageTime = Time.time;
-        Debug.Log($"Player took {amount} damage. Current HP: {playerBehavior.health}");
+        // Debug.Log($"Player took {amount} damage. Current HP: {playerBehavior.health}");
     }
 }

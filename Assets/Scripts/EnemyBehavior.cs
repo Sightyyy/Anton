@@ -31,11 +31,26 @@ public class EnemyBehavior : MonoBehaviour
     private InvertedIdentification invertedId;
     private SpriteRenderer spriteRenderer;
 
+    private bool isAttacking = false;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        Transform visualTransform = transform.Find("Visual");
+        if (visualTransform != null)
+        {
+            spriteRenderer = visualTransform.GetComponent<SpriteRenderer>();
+            if (spriteRenderer == null)
+            {
+                Debug.LogWarning($"Object 'Visual' ditemukan tapi tidak ada SpriteRenderer di {gameObject.name}");
+            }
+        }
+        else
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
         invertedId = GetComponent<InvertedIdentification>();
         currentHealth = maxHealth;
         InitializeHealthBar();
@@ -100,23 +115,15 @@ public class EnemyBehavior : MonoBehaviour
         Vector2 direction = (player.position - transform.position).normalized;
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
+        
         if (distanceToPlayer > stoppingDistance)
         {
             Move(direction);
-
-            // jalan → state 1
-            if (animator != null)
-            {
-                animator.SetInteger("State", 1);
-            }
+            if (animator != null && !isAttacking) animator.SetInteger("State", 1);
         }
         else
         {
-            // diam → state 0
-            if (animator != null)
-            {
-                animator.SetInteger("State", 0);
-            }
+            if (animator != null && !isAttacking) animator.SetInteger("State", 0);
         }
 
         UpdateFacingDirection(direction);
@@ -138,8 +145,6 @@ public class EnemyBehavior : MonoBehaviour
     public void TakeDamage(int amount)
     {
         int finalDamage = Mathf.Max(0, amount - defense);
-        int oldHealth = currentHealth;
-
         currentHealth -= finalDamage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
@@ -149,19 +154,7 @@ public class EnemyBehavior : MonoBehaviour
             healthFillImage.color = healthGradient.Evaluate(healthFillImage.fillAmount);
         }
 
-        Debug.Log(
-            $"{gameObject.name} terkena serangan!" +
-            $"\nDamage mentah: {amount}" +
-            $"\nDefense: {defense}" +
-            $"\nDamage akhir: {finalDamage}" +
-            $"\nHP Sebelum: {oldHealth}" +
-            $"\nHP Sesudah: {currentHealth}"
-        );
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        if (currentHealth <= 0) Die();
     }
 
     private void Die()
@@ -180,18 +173,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (animator != null)
-            {
-                animator.SetTrigger("Attack");
-            }
-
-            var playerDamage = collision.GetComponent<DamageTaken>();
-            if (playerDamage != null)
-            {
-                Debug.Log("First damage to player");
-                playerDamage.ApplyDamage(contactDamage);
-                lastAttackTime = Time.time;
-            }
+            TryAttack(collision);
         }
     }
 
@@ -199,42 +181,54 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (collision.CompareTag("Player") && Time.time > lastAttackTime + attackCooldown)
         {
-            if (animator != null)
-            {
-                animator.SetTrigger("Attack");
-            }
-
-            var playerDamage = collision.GetComponent<DamageTaken>();
-            if (playerDamage != null)
-            {
-                Debug.Log("Gives more damage to player");
-                playerDamage.ApplyDamage(contactDamage);
-                lastAttackTime = Time.time;
-            }
+            TryAttack(collision);
         }
     }
+
+    private void TryAttack(Collider2D collision)
+    {
+        if (animator != null && !isAttacking)
+        {
+            ResetAnimationStates();
+            animator.SetTrigger("Attack");
+            isAttacking = true;
+        }
+
+        var playerDamage = collision.GetComponent<DamageTaken>();
+        if (playerDamage != null)
+        {
+            playerDamage.ApplyDamage(contactDamage);
+            lastAttackTime = Time.time;
+        }
+        isAttacking = false;
+    }
+
+    private void ResetAnimationStates()
+    {
+        animator.SetInteger("State", 0);
+        animator.ResetTrigger("Attack"); 
+    }
+
 
     private void UpdateFacingDirection(Vector2 direction)
     {
         if (spriteRenderer == null) return;
 
         bool facingRight = direction.x > 0;
-
         if (invertedId != null && invertedId.isInverted)
-        {
             spriteRenderer.flipX = !facingRight;
-        }
         else
-        {
             spriteRenderer.flipX = facingRight;
-        }
     }
 
     private void LateUpdate()
     {
         if (healthBarCanvas != null)
-        {
             healthBarCanvas.transform.forward = Camera.main.transform.forward;
-        }
+    }
+
+    public void EndAttack()
+    {
+        isAttacking = false;
     }
 }
