@@ -20,7 +20,6 @@ public class GameMenu : MonoBehaviour
     public string scene;
     public string world;
 
-    // 🔹 Reference ke EnemySpawner
     private EnemySpawner enemySpawn;
 
     private void Awake()
@@ -29,7 +28,6 @@ public class GameMenu : MonoBehaviour
         playerBehavior = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
         playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Animator>();
 
-        // 🔹 Karena GameMenu & EnemySpawner ada di object yang sama
         enemySpawn = GetComponent<EnemySpawner>();
         if (enemySpawn == null)
         {
@@ -68,19 +66,31 @@ public class GameMenu : MonoBehaviour
         OnPlayerDead();
         CheckWaveComplete();
 
-        if (playerBehavior == null) return; // 🔹 diperbaiki (supaya nggak null ref)
+        if (playerBehavior == null) return;
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !playerBehavior.isDead)
+        if (tutorialShown && tutorialPanel.activeSelf)
         {
-            if (!paused)
+            if (Input.anyKeyDown || Input.GetMouseButtonDown(0))
             {
-                audioCollection.PlaySFX(audioCollection.buttonClick);
-                Pause();
+                HideTutorial();
+                return;
             }
-            else
+        }
+
+        if (!tutorialShown && !playerBehavior.isDead)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7))
             {
-                audioCollection.PlaySFX(audioCollection.buttonClick);
-                Resume();
+                if (!paused)
+                {
+                    audioCollection.PlaySFX(audioCollection.buttonClick);
+                    Pause();
+                }
+                else
+                {
+                    audioCollection.PlaySFX(audioCollection.buttonClick);
+                    Resume();
+                }
             }
         }
     }
@@ -110,7 +120,9 @@ public class GameMenu : MonoBehaviour
             tutorialPanel.SetActive(false);
             Time.timeScale = 1f;
 
-            PlayerPrefs.SetInt("TutorialShown", 0);
+            tutorialShown = false; // <- tambahin ini
+
+            PlayerPrefs.SetInt("TutorialShown", 1); // ubah ke 1 biar next time nggak muncul lagi
             PlayerPrefs.Save();
         }
     }
@@ -146,7 +158,7 @@ public class GameMenu : MonoBehaviour
         if (enemySpawn.currentWave >= enemySpawn.maxWave && 
             (enemySpawn.enemiesPerWave - enemySpawn.enemiesKilledThisWave) <= 0)
         {
-            enemySpawn = null; // Supaya nggak terus ngecek
+            enemySpawn = null;
             DataManager.Instance.CompleteLevel();
             GoToCutscene(scene);
         }
@@ -165,6 +177,7 @@ public class GameMenu : MonoBehaviour
 
     public void Restart(string sceneName)
     {
+        Time.timeScale = 1f;
         StartCoroutine(TransitionToScene(sceneName));
     }
 

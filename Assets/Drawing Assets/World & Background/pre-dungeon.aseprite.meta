@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -184,13 +185,18 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1399866204
+    uuid:
+      value0: 2062818356
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 2062818356
     name: pre-dungeon
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: pre-dungeon_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -199,7 +205,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: aea2d4c4d0624e546b21c525522cbcef
-    - name: pre-dungeon_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -208,7 +214,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: d5d6e0078c2adb042b9a0794573041b5
-    - name: pre-dungeon_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -224,3 +230,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 960, y: 540}
+  previousTextureSize: {x: 1024, y: 2048}

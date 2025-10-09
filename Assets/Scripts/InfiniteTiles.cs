@@ -66,7 +66,7 @@ public class InfiniteTiles : MonoBehaviour
             {
                 currentTilePos[x, y] = currentTilePos[x + 1, y];
             }
-            left.position += Vector3.right * tileWidth * 2;
+            left.position += Vector3.right * tileWidth * 3;
             currentTilePos[2, y] = left;
         }
     }

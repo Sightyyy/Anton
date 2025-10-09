@@ -14,7 +14,7 @@ public class PlayerBehavior : MonoBehaviour
     public int health;
     public int maxStamina;
     public int stamina;
-    public float healingPercent = 0.15f;
+    public float healingPercent = 0.2f;
 
     [Header("Visual Reference")]
     public GameObject visual;
@@ -151,12 +151,12 @@ public class PlayerBehavior : MonoBehaviour
         stamina -= 10;
         staminaRegenDelay = 1f;
         staminaRegenTimer = 0f;
-        skillCooldownTimer = 5f;
+        skillCooldownTimer = 8.5f;
         if (skillCooldownImage) skillCooldownImage.gameObject.SetActive(true);
 
         anim.SetTrigger("Skill");
 
-        yield return new WaitForSeconds(1.683f);
+        yield return new WaitForSeconds(0.7833f);
 
         isDoingAction = false;
         isHardLocked = false;
@@ -171,7 +171,7 @@ public class PlayerBehavior : MonoBehaviour
 
             if (skillCooldownImage != null)
             {
-                skillCooldownImage.fillAmount = skillCooldownTimer / 5;
+                skillCooldownImage.fillAmount = skillCooldownTimer / 8.5f;
             }
         }
         else if (skillCooldownTimer <= 0f && skillCooldownImage != null)
@@ -243,9 +243,9 @@ public class PlayerBehavior : MonoBehaviour
         poisonTimer = 0f;
         slowTimer = 0f;
         knockbackCooldown = 0f;
-        StartCoroutine(TemporaryInvulnerability(1.5f));
+        StartCoroutine(TemporaryInvulnerability(1f));
 
-        healingCooldownTimer = 5f;
+        healingCooldownTimer = 7.5f;
         if (healingCooldownImage) healingCooldownImage.gameObject.SetActive(true);
 
         yield return null;
@@ -267,7 +267,7 @@ public class PlayerBehavior : MonoBehaviour
 
             if (healingCooldownImage != null)
             {
-                healingCooldownImage.fillAmount = healingCooldownTimer / 5;
+                healingCooldownImage.fillAmount = healingCooldownTimer / 7.5f;
             }
         }
         else if (healingCooldownTimer <= 0f && healingCooldownImage != null)

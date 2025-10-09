@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 7640088490181583553}
   - component: {fileID: 990740333316031047}
   m_Layer: 0
-  m_Name: Dungeon Enemy Speedy 1
+  m_Name: Dungeon Enemy Tank
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,7 +334,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2103397077, guid: aa9fad953f0c11e439bbc3699de7fe5a, type: 3}
-  m_Color: {r: 0.25943398, g: 0.22639287, b: 0.22639287, a: 1}
+  m_Color: {r: 0.42745098, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

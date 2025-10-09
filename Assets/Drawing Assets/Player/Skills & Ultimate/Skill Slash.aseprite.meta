@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -204,13 +205,18 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1397870322
+    uuid:
+      value0: 1085376826
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 1085376826
     name: Skill Slash
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Skill Slash_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -219,7 +225,7 @@ ScriptedImporter:
         width: 320
         height: 180
       spriteId: ee5158d8edad16345bfa6bb1771b8531
-    - name: Skill Slash_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -228,7 +234,7 @@ ScriptedImporter:
         width: 320
         height: 180
       spriteId: 55f041c26a0100d4993650485482ecbd
-    - name: Skill Slash_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -237,7 +243,7 @@ ScriptedImporter:
         width: 320
         height: 180
       spriteId: 1178f176a34bbac498c9189d779d1901
-    - name: Skill Slash_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -253,3 +259,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 320, y: 180}
+  previousTextureSize: {x: 512, y: 1024}

@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -384,13 +385,18 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -753214259
+    uuid:
+      value0: 593123393
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 593123393
     name: post-dungeon&credits
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: post-dungeon&credits_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -399,7 +405,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 5c17b1ea8708b5243b56285aac5da185
-    - name: post-dungeon&credits_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -408,7 +414,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 19130e212534c4f4fb1135c0bf9d049b
-    - name: post-dungeon&credits_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -417,7 +423,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 54a25eb592fa126458d0c841a162b5be
-    - name: post-dungeon&credits_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -426,7 +432,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 3bb07aa95229f6e4aa588e3394e124e9
-    - name: post-dungeon&credits_Frame_4
+    - name: Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -435,7 +441,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 98cd29e5b4a49ba4d9b860e5e02836c4
-    - name: post-dungeon&credits_Frame_5
+    - name: Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -444,7 +450,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 33e554d51f239c44a8ec4d6f207e6a2b
-    - name: post-dungeon&credits_Frame_6
+    - name: Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -453,7 +459,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 8237b323eb77d0b428527ada231c36c3
-    - name: post-dungeon&credits_Frame_7
+    - name: Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
@@ -462,7 +468,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: d4018db3e16b097479af0252d11e504b
-    - name: post-dungeon&credits_Frame_8
+    - name: Frame_8
       frameIndex: 8
       additiveSortOrder: 0
       cellRect:
@@ -471,7 +477,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 9d1a4a265e01e8646abf6c7f3f2073c9
-    - name: post-dungeon&credits_Frame_9
+    - name: Frame_9
       frameIndex: 9
       additiveSortOrder: 0
       cellRect:
@@ -480,7 +486,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 75c9ef896e246374096891cc336cd099
-    - name: post-dungeon&credits_Frame_10
+    - name: Frame_10
       frameIndex: 10
       additiveSortOrder: 0
       cellRect:
@@ -489,7 +495,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: eae31747508abab44a9d00567c07e22e
-    - name: post-dungeon&credits_Frame_11
+    - name: Frame_11
       frameIndex: 11
       additiveSortOrder: 0
       cellRect:
@@ -498,7 +504,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: dc8fcceff17f39e4a82f59a51fe40fd3
-    - name: post-dungeon&credits_Frame_12
+    - name: Frame_12
       frameIndex: 12
       additiveSortOrder: 0
       cellRect:
@@ -514,3 +520,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 960, y: 540}
+  previousTextureSize: {x: 2048, y: 4096}

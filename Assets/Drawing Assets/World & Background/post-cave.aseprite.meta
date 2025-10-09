@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -244,13 +245,18 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1888286546
+    uuid:
+      value0: 3706008806
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: -588958490
     name: post-cave
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: post-cave_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -259,7 +265,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 801a2adba368b9046b2b6ef57c0fd002
-    - name: post-cave_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -268,7 +274,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 42f85a1a202764f49b1f746b7507dd2d
-    - name: post-cave_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -277,7 +283,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 021ffb3761e47cc46ba39440eb01062a
-    - name: post-cave_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -286,7 +292,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: c5f2a8dba6e38db459dc85ec5ea96138
-    - name: post-cave_Frame_4
+    - name: Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -295,7 +301,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: e9867d713fef3354eb5af67b7ce7ae15
-    - name: post-cave_Frame_5
+    - name: Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -311,3 +317,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 960, y: 540}
+  previousTextureSize: {x: 2048, y: 2048}

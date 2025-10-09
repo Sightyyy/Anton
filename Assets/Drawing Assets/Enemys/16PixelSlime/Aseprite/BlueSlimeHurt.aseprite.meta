@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -304,13 +305,18 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1025982419
+    uuid:
+      value0: 218955487
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 218955487
     name: BlueSlimeHurt
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: BlueSlimeHurt_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -319,7 +325,7 @@ ScriptedImporter:
         width: 16
         height: 12
       spriteId: 78fbd55ec729b2648ba05d606751e76c
-    - name: BlueSlimeHurt_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -328,7 +334,7 @@ ScriptedImporter:
         width: 16
         height: 12
       spriteId: e25c54afa8bec014393615b244f9da45
-    - name: BlueSlimeHurt_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -337,7 +343,7 @@ ScriptedImporter:
         width: 16
         height: 12
       spriteId: 94c35b7daec4f9a40bb882f9352dc95b
-    - name: BlueSlimeHurt_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -346,7 +352,7 @@ ScriptedImporter:
         width: 16
         height: 12
       spriteId: c31a547a6cec69741a2ea81a09e0d531
-    - name: BlueSlimeHurt_Frame_4
+    - name: Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -355,7 +361,7 @@ ScriptedImporter:
         width: 16
         height: 12
       spriteId: cf1b704d96047cf45b7c9c4767f07696
-    - name: BlueSlimeHurt_Frame_5
+    - name: Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -364,7 +370,7 @@ ScriptedImporter:
         width: 16
         height: 12
       spriteId: 1b97e6e0fb150c4479c8e17e5e6d8073
-    - name: BlueSlimeHurt_Frame_6
+    - name: Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -373,7 +379,7 @@ ScriptedImporter:
         width: 16
         height: 12
       spriteId: ec431a9eb1fe0544f81434b830090281
-    - name: BlueSlimeHurt_Frame_7
+    - name: Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
@@ -382,7 +388,7 @@ ScriptedImporter:
         width: 16
         height: 12
       spriteId: 365273088b7daaf4997888e513d7e8bc
-    - name: BlueSlimeHurt_Frame_8
+    - name: Frame_8
       frameIndex: 8
       additiveSortOrder: 0
       cellRect:
@@ -398,3 +404,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 16, y: 16}
+  previousTextureSize: {x: 64, y: 128}

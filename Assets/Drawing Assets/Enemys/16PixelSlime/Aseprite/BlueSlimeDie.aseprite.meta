@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -344,13 +345,18 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -966784992
+    uuid:
+      value0: 2972668064
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: -1322299232
     name: BlueSlimeDie
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: BlueSlimeDie_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -359,7 +365,7 @@ ScriptedImporter:
         width: 16
         height: 13
       spriteId: a8e1a33a80909a642836634490682a8c
-    - name: BlueSlimeDie_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -368,7 +374,7 @@ ScriptedImporter:
         width: 12
         height: 14
       spriteId: aaf7452cbc150764990940198768502d
-    - name: BlueSlimeDie_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -377,7 +383,7 @@ ScriptedImporter:
         width: 12
         height: 14
       spriteId: c429f45dc8ca859469f838a75a736188
-    - name: BlueSlimeDie_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -386,7 +392,7 @@ ScriptedImporter:
         width: 13
         height: 15
       spriteId: 99fd8f3ba2635de488d3d8d6e48105d4
-    - name: BlueSlimeDie_Frame_4
+    - name: Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -395,7 +401,7 @@ ScriptedImporter:
         width: 14
         height: 15
       spriteId: a61c9861fbf0b784ba48d1cc760ba8a7
-    - name: BlueSlimeDie_Frame_5
+    - name: Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -404,7 +410,7 @@ ScriptedImporter:
         width: 15
         height: 16
       spriteId: 8abd5e6e2927eed46a5d3605a97dcdf4
-    - name: BlueSlimeDie_Frame_6
+    - name: Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -413,7 +419,7 @@ ScriptedImporter:
         width: 16
         height: 15
       spriteId: 55724b60c14dfa148a9baead0f1a0747
-    - name: BlueSlimeDie_Frame_7
+    - name: Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
@@ -422,7 +428,7 @@ ScriptedImporter:
         width: 16
         height: 12
       spriteId: 282f20a86585d0c4190c22708743c63d
-    - name: BlueSlimeDie_Frame_8
+    - name: Frame_8
       frameIndex: 8
       additiveSortOrder: 0
       cellRect:
@@ -431,7 +437,7 @@ ScriptedImporter:
         width: 16
         height: 9
       spriteId: f27236ebc51274842915f0cb89a5d21d
-    - name: BlueSlimeDie_Frame_9
+    - name: Frame_9
       frameIndex: 9
       additiveSortOrder: 0
       cellRect:
@@ -440,7 +446,7 @@ ScriptedImporter:
         width: 16
         height: 3
       spriteId: 6b2b6849556754e409862f0649462324
-    - name: BlueSlimeDie_Frame_10
+    - name: Frame_10
       frameIndex: 10
       additiveSortOrder: 0
       cellRect:
@@ -456,3 +462,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 16, y: 16}
+  previousTextureSize: {x: 64, y: 128}

@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -264,13 +265,18 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -461220870
+    uuid:
+      value0: 1578347618
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 1578347618
     name: post-plains
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: post-plains_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -279,7 +285,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 888cd798bfb38a84d9e286688fb0eea6
-    - name: post-plains_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -288,7 +294,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 803a2d80348e3ea43b416d914fd7e724
-    - name: post-plains_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -297,7 +303,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 244a02cf512f5b1488f33a8c48013675
-    - name: post-plains_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -306,7 +312,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: d1d0c05c54807fd40875e5eb731ad889
-    - name: post-plains_Frame_4
+    - name: Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -315,7 +321,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: cb4a9e920b233b44fa4b3e329f5784d9
-    - name: post-plains_Frame_5
+    - name: Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -324,7 +330,7 @@ ScriptedImporter:
         width: 960
         height: 540
       spriteId: 88736bac73005b74fa9b759a0a5b449f
-    - name: post-plains_Frame_6
+    - name: Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -340,3 +346,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 960, y: 540}
+  previousTextureSize: {x: 2048, y: 4096}

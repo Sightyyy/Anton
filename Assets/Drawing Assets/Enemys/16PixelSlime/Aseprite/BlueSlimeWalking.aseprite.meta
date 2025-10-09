@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -204,13 +205,18 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1812852301
+    uuid:
+      value0: 1789628353
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 1789628353
     name: BlueSlimeWalking
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: BlueSlimeWalking_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -219,7 +225,7 @@ ScriptedImporter:
         width: 16
         height: 12
       spriteId: 4ec1a4c6555628c4b948597d42955577
-    - name: BlueSlimeWalking_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -228,7 +234,7 @@ ScriptedImporter:
         width: 16
         height: 12
       spriteId: 75c5cb22ed46a494e959afe9bff0b740
-    - name: BlueSlimeWalking_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -237,7 +243,7 @@ ScriptedImporter:
         width: 16
         height: 11
       spriteId: 8dcdf508b4d1df34980b17529eb260fa
-    - name: BlueSlimeWalking_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -253,3 +259,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 16, y: 16}
+  previousTextureSize: {x: 64, y: 64}
