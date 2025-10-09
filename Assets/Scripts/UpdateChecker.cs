@@ -44,6 +44,7 @@ public class VersionChecker : MonoBehaviour
                     updatePanel.SetActive(true);
                     updateText.text =
                         "Update Available!\n" +
+                        $"Your Version: {currentVersion}\nNew Version: {latestVersion}\n" +
                         "Please update the game!";
                 }
             }
