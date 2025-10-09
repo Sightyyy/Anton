@@ -7,7 +7,7 @@ public class VersionChecker : MonoBehaviour
 {
     [Header("Game Version Settings")]
     public string currentVersion = "Beta 1.0"; // versi lokal game kamu
-    public string versionFileURL = "https://yourwebsite.com/version.txt";
+    public string versionFileURL = "https://github.com/Sightyyy/Anton/blob/main/version.txt";
 
     [Header("UI References")]
     public GameObject updatePanel;
