@@ -7,7 +7,7 @@ using TMPro;
 public class VersionChecker : MonoBehaviour
 {
     [Header("Game Version Settings")]
-    public string currentVersion = "Beta 1.0.1";
+    private string currentVersion = "Beta 1.0.1";
     private string versionFileURL = "https://raw.githubusercontent.com/Sightyyy/Anton/refs/heads/main/version.txt";
 
     [Header("UI References")]
